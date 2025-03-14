@@ -1,4 +1,4 @@
-from transformers import AutoModelFor CasualLM, AutoTokenizer
+from transformers import AutoModelForCasualLM, AutoTokenizer
 
 model_name = "path/to/llava_model" # update with actual path
 
