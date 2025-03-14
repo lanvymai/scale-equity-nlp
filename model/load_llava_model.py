@@ -2,6 +2,9 @@ import sys
 import torch
 from transformers import AutoTokenizer
 
+import llava
+print("LLaVA module found!")
+
 # Ensure Python can find LLaVA
 sys.path.append("/scratch/ez2545/.local")
 
