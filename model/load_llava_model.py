@@ -1,4 +1,4 @@
-from transformers import AutoModelForCasualLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "scratch/$USER/models/llava-v1.5-7b"
 
