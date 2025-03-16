@@ -1,5 +1,6 @@
 from datasets import load_dataset
 
-dataset = load_dataset("laion/laion400m", cache_dir="/scratch/$USER/datasets/laion400m")
+dataset = load_dataset("laion/laion400m", split='train')
+dataset.save_to_disk("/scratch/ez2545/datasets/laion400m")
 
 print("Dataset Downloaded Successfully!")
