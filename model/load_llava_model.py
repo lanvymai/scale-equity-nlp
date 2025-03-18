@@ -1,6 +1,6 @@
 from transformers import AutoTokenizer, AutoModelForVision2Seq
 
-model_id = "llava-hf/llava-v1.5-7b"
+model_id = "llava-hf/llava-1.5-7b-hf"
 local_dir = "/scratch/eyw2010/models/llava-v1.5-7b"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id, cache_dir=local_dir, trust_remote_code=True, use_fast=False)
