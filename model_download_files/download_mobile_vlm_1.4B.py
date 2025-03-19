@@ -7,7 +7,7 @@ model_id = 'mtgv/MobileLLaMA-1.4B-Chat'
 
 # REPLACE THIS WITH YOUR NYU ID
 id = "eyw2010"
-local_dir = f"/scratch/{id}/nlu/models/MobileLLaMA-1.4B-Chat"
+local_dir = f"/scratch/{id}/models/MobileLLaMA-1.4B-Chat"
 
 tokenizer = LlamaTokenizer.from_pretrained(model_id, cache_dir=local_dir, trust_remote_code=True)
 model = LlamaForCausalLM.from_pretrained(

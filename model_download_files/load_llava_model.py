@@ -1,7 +1,9 @@
 from transformers import AutoTokenizer, AutoModelForVision2Seq
 
+# REPLACE THIS WITH YOUR NYU ID
+id = "eyw2010"
 model_id = "llava-hf/llava-1.5-7b-hf"
-local_dir = "/scratch/ez2545/models/llava-v1.5-7b"
+local_dir = f"/scratch/{id}/models/llava-v1.5-7b"
 
 tokenizer = AutoTokenizer.from_pretrained(model_id, cache_dir=local_dir, trust_remote_code=True, use_fast=False)
 model = AutoModelForVision2Seq.from_pretrained(model_id, cache_dir=local_dir, torch_dtype="auto", device_map="auto", trust_remote_code=True)
