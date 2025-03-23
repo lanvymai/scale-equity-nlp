@@ -27,7 +27,7 @@ def download_image(url, caption, image_dir):
         print(f"failed to download {url}: {e}")
 
 # disgusting pig
-with ThreadPoolExecutor(max_workers=8) as executor:
+with ThreadPoolExecutor(max_workers=4) as executor:
     for url, caption in zip(image_urls, captions):
         executor.submit(download_image, url, caption, image_dir)
 
