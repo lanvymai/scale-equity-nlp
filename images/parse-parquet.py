@@ -18,7 +18,7 @@ def download_image(url, caption):
         filename = clean_filename(caption)
         image_path = os.path.join(image_dir, filename)
 
-        if os.path.exists(image_path):  # Skip if already downloaded
+        if os.path.exists(image_path):
             return
 
         response = requests.get(url, timeout=10)
