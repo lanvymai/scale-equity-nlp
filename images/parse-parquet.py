@@ -2,34 +2,38 @@ import pandas as pd
 import requests
 from concurrent.futures import ThreadPoolExecutor
 import os
+import hashlib
 
 image_dir = "/scratch/ez2545/scale-equity-nlp/images"
 os.makedirs(image_dir, exist_ok=True)
 
-df = pd.read_parquet('/scratch/ez2545/scale-equity-nlp/Data/laion400m.parquet')
+parquet_path = "/scratch/ez2545/scale-equity-nlp/Data/laion400m.parquet"
+df_iter = pd.read_parquet(parquet_path, engine="pyarrow", columns=["url", "caption"], iterator=True)
 
-image_urls = df['url']  
-captions = df['caption']
+def clean_filename(text, length=50):
+    return hashlib.md5(text.encode()).hexdigest()[:10] + ".jpg"
 
-# bruv
-def download_image(url, caption, image_dir):
+def download_image(url, caption):
     try:
-        response = requests.get(url)
+        filename = clean_filename(caption)
+        image_path = os.path.join(image_dir, filename)
+
+        if os.path.exists(image_path):  # Skip if already downloaded
+            return
+
+        response = requests.get(url, timeout=10)
         response.raise_for_status()
 
-        image_name = f"{caption[:50]}.jpg"  # file name = caption
-        image_path = os.path.join(image_dir, image_name)
-
-        with open(image_path, 'wb') as f:
+        with open(image_path, "wb") as f:
             f.write(response.content)
-        print(f"downloaded: {image_name}")
+
+        print(f"Downloaded: {filename}")
     except Exception as e:
-        print(f"failed to download {url}: {e}")
+        print(f"Failed: {url} -> {e}")
 
-# disgusting pig
-with ThreadPoolExecutor(max_workers=4) as executor:
-    for url, caption in zip(image_urls, captions):
-        executor.submit(download_image, url, caption, image_dir)
+with ThreadPoolExecutor(max_workers=10) as executor:
+    for df in df_iter:
+        urls, captions = df["url"], df["caption"]
+        executor.map(download_image, urls, captions)
 
-print("images downloaded successfully")
-
+print("Image download complete.")
