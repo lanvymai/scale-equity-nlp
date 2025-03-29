@@ -9,7 +9,6 @@
 #SBATCH --partition=gpu_misc_v100
 
 module load cuda/11.6.2
-python -m venv llava_env
 source llava_env/bin/activate
 
 python /scratch/ez2545/scale-equity-nlp/images/parse-parquet.py
