@@ -2,11 +2,10 @@
 #SBATCH --job-name=image_download
 #SBATCH --output=download_images.out
 #SBATCH --error=download_images.err
-#SBATCH --time=2:00:00
+#SBATCH --time=4:00:00
 #SBATCH --mem=32000
-#SBATCH --gres=gpu:4
-#SBATCH --cpus-per-task=4
-#SBATCH --partition=gpu_misc_v100
+#SBATCH --cpus-per-task=8
+#SBATCH --partition=cpu_long
 
 module load cuda/11.6.2
 source llava_env/bin/activate
