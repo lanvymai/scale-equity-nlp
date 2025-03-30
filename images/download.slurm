@@ -5,7 +5,7 @@
 #SBATCH --time=4:00:00
 #SBATCH --mem=32000
 #SBATCH --cpus-per-task=8
-#SBATCH --partition=rtx8000
+#SBATCH --partition=cds_rtx_a
 
 module load cuda/11.6.2
 source llava_env/bin/activate
