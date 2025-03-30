@@ -5,7 +5,7 @@
 #SBATCH --time=4:00:00
 #SBATCH --mem=32000
 #SBATCH --cpus-per-task=8
-#SBATCH --partition=cpu_long
+#SBATCH --partition=cpu_a100_1
 
 module load cuda/11.6.2
 source llava_env/bin/activate
