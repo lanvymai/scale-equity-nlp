@@ -1,9 +1,9 @@
 # Training LLM workflow
 
 ## Login to Greene Cluster
-
+```
 ssh <NetID>@greene.hpc.nyu.edu 
-
+```
 (if off campus, turn on VPN before log into Greene cluster)
 
 - If "host key verification failed" -> rm -rf /Users/<folder_name_failed>/.ssh/known_hosts
