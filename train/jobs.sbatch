@@ -18,7 +18,8 @@ source /share/apps/anaconda3/2020.07/etc/profile.d/conda.sh;
 conda activate /scratch/nm4867/llm;
 export PATH=/scratch/nm4867/llm/bin:$PATH;
 
-srun HF_TOKEN=your_token_here trl sft \
+export HF_TOKEN=your_token_here;
+srun trl sft \
     --model_name_or_path gpt2 \
     --dataset_name bigscience-data/roots_vi_wikiquote \
     --max_length 1024 \
