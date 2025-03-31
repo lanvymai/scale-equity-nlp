@@ -15,8 +15,8 @@ module load openmpi/intel/4.0.5           # NOTE: we are loading "openmpi" modul
 module load anaconda3/2020.07;
 
 source /share/apps/anaconda3/2020.07/etc/profile.d/conda.sh;
-conda activate /scratch/nm4867/llm;
-export PATH=/scratch/nm4867/llm/bin:$PATH;
+conda activate /scratch/<NetID>/llm;
+export PATH=/scratch/<NetID>/llm/bin:$PATH;
 
 export HF_TOKEN=your_token_here;
 srun trl sft \
