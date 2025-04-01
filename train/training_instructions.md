@@ -61,9 +61,8 @@ pip install accelerate peft bitsandbytes transformers==4.50.0 trl==0.16.0 scipy 
 
 ## 4. Training Workflow
 - After logging into Greene cluster
-- ```ssh burst```
-- Go into `scratch/<NetID>`: ```git clone git@github.com:lanvymai/scale-equity-nlp.git```
-- ```cd train```
+- Go into `scratch/<NetID>`: ```git clone git@github.com:lanvymai/scale-equity-nlp.git``` (if you already clone, skip this)
+- Go to `scale-equity-nlp`, then ```cd train```
 - Edit the jobs.sbatch file: ```vi jobs.sbatch```
     - `hf_token`: go into huggingface -> your profile -> access token -> create new -> copy that token and paste it here (will never show you again)
     - Edit all the `<NetID>` to your NetID
