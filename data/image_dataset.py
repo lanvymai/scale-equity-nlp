@@ -6,7 +6,7 @@ import pandas as pd
 from huggingface_hub import login
 import os
 
-login(token="token")
+login(token="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")
 
 config = {
     "dataset_name": "ezruby/scale-equity-nlp",
@@ -48,10 +48,8 @@ def main():
         processed_data = process_chunk(chunk)
         
         if processed_data:
-            # Create dataset from processed data
             chunk_dataset = Dataset.from_pandas(pd.DataFrame(processed_data))
             
-            # Push to Hub
             chunk_dataset.push_to_hub(
                 f"{config['output_dataset']}-chunk-{i//config['chunk_size']}",
                 private=True
