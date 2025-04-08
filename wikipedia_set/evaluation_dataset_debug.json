@@ -1,0 +1,98 @@
+[
+    {
+        "question": "Which caption best matches this image?",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Bas%C3%ADlica_de_Esquipulas.jpg/330px-Bas%C3%ADlica_de_Esquipulas.jpg",
+        "options": [
+            "Basilica of the Cristo Negro of Esquipulas in Guatemala",
+            "Culturally modified trees (CMTs) are when resources from a tree are used in a way that does not kill the tree itself.",
+            "South Moluccan shaman in an exorcism ritual involving children, Buru, Indonesia (1920)",
+            "Bonda \"disari\" (shaman) Sukra Dhangdamajhi shares his shamanic practices in the Bonda language"
+        ],
+        "answer": "Basilica of the Cristo Negro of Esquipulas in Guatemala",
+        "category": "Indigenous Culture"
+    },
+    {
+        "question": "What is the subject of this photo?",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Milagroso_Se%C3%B1or_de_Esquipulas_de_la_Catedral_de_Antigua_Guatemala.jpg/220px-Milagroso_Se%C3%B1or_de_Esquipulas_de_la_Catedral_de_Antigua_Guatemala.jpg",
+        "options": [
+            "Bonda \"disari\" (shaman) Sukra Dhangdamajhi shares his shamanic practices in the Bonda language",
+            "Russian postcard based on a photo taken in 1908 by S. I. Borisov, showing a female shaman of probable Khakas ethnicity[1][2][3]",
+            "The earliest known depiction of a Siberian shaman, by the Dutch explorer Nicolaes Witsen, 17th century. Witsen called him a \"priest of the Devil\" and drew clawed feet for the supposed demonic qualities.[6]",
+            "Black Christ of Esquipulas at Saint Joseph Cathedral of Antigua Guatemala"
+        ],
+        "answer": "Black Christ of Esquipulas at Saint Joseph Cathedral of Antigua Guatemala",
+        "category": "Indigenous Culture"
+    },
+    {
+        "question": "What is the subject of this photo?",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/MainAltarSanctChalmaMex.JPG/250px-MainAltarSanctChalmaMex.JPG",
+        "options": [
+            "Medicine men, like Sitting Bull, could perform the Shaking Tent ceremony",
+            "Illustration of fish weir, designed to guide salmon in the enclosure to be hand selected as a way to manage the salmon population to ensure healthy runs the following year.",
+            "Buryat shaman on Olkhon Island, Siberia",
+            "Main altar with the Our Lord of Chalma in the State of Mexico"
+        ],
+        "answer": "Main altar with the Our Lord of Chalma in the State of Mexico",
+        "category": "Indigenous Culture"
+    },
+    {
+        "question": "Select the label that is most likely the topic of this image.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/FinishedYurt.jpg/250px-FinishedYurt.jpg",
+        "options": [
+            "The ice house entrance, Eglinton Country Park, Scotland",
+            "Earth lodge interior recreated in the historic Mandan town On-a-Slant, Fort Abraham Lincoln State Park, North Dakota",
+            "A typical residence, emphasis on the stepped Bermudian roof, used for rainwater collection",
+            "A yurt-derived structure in the Colorado mountains, USA"
+        ],
+        "answer": "A yurt-derived structure in the Colorado mountains, USA",
+        "category": "Vernacular architecture"
+    },
+    {
+        "question": "Which option is the most accurate label for this photo?",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Kelleys_Island_State_Park_Yurt.jpg/250px-Kelleys_Island_State_Park_Yurt.jpg",
+        "options": [
+            "Post frame barndominium with corrugated metal roof",
+            "A-frame roof Wienerschnitzel restaurant in Whittier, California",
+            "An American yurt with a deck. Permanently located in Kelleys Island State Park",
+            "Cruck framing, Leigh Court Barn, Worcester, England"
+        ],
+        "answer": "An American yurt with a deck. Permanently located in Kelleys Island State Park",
+        "category": "Vernacular architecture"
+    },
+    {
+        "question": "Which caption best matches this image?",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Yurts_in_the_tourist_camp._Mongolia.jpg/250px-Yurts_in_the_tourist_camp._Mongolia.jpg",
+        "options": [
+            "Yurts in the tourist camp, Mongolia",
+            "A log cabin in the region of Kysuce, Slovakia\u2014an example of vernacular architecture in a relatively cold mountain climate using local wood",
+            "The baserri at the Chillida Museum in Hernani",
+            "Corner post log construction in Lancaster, PA"
+        ],
+        "answer": "Yurts in the tourist camp, Mongolia",
+        "category": "Vernacular architecture"
+    },
+    {
+        "question": "Which of the following best describes this image?",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Synagogue_La_Ghriba_de_Djerba_%288480818301%29.jpg/250px-Synagogue_La_Ghriba_de_Djerba_%288480818301%29.jpg",
+        "options": [
+            "A Muslim kindergarten in Yangzhou, China",
+            "A 14th-century mosque of Mir Sayyid Ali Hamadani in Srinagar, Jammu and Kashmir, India",
+            "Interior of the El Ghriba synagogue in Djerba, Tunisia",
+            "View of the upper walls and turrets of the Kasbah Amridil in Skoura, decorated with geometric motifs"
+        ],
+        "answer": "Interior of the El Ghriba synagogue in Djerba, Tunisia",
+        "category": "Islamic architecture"
+    },
+    {
+        "question": "Which caption best matches this image?",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Coranic_School_%28106589859%29.jpeg/250px-Coranic_School_%28106589859%29.jpeg",
+        "options": [
+            "Mural detail, Dongsi Shitiao Station",
+            "The Bayezid II Hammam (originally part of the k\u00fclliye of the Bayezid II Mosque) was built at the beginning of the 16th century and now serves as a museum.",
+            "Courtyard of the Ben Youssef Madrasa in Marrakesh, Morocco (16th century)",
+            "Interior of the Hekimo\u011flu Ali Pasha Mosque in Istanbul (1734\u20131735)"
+        ],
+        "answer": "Courtyard of the Ben Youssef Madrasa in Marrakesh, Morocco (16th century)",
+        "category": "Islamic architecture"
+    }
+]
