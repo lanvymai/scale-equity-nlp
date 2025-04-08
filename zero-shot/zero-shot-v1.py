@@ -18,20 +18,42 @@ def load_model(model_name):
 
 # Step 3: Preprocess the image
 def preprocess_image(image_url):
-    response = requests.get(image_url, stream=True)
-    image = Image.open(response.raw).convert("RGB")
-    return image
+    # Ensure the URL starts with "http://" or "https://"
+    try:
+        # Make the HTTP request
+        headers = {'User-Agent': 'NYU-NLU-class-project/0.0 (https://docs.google.com/document/d/1qJJJCK7chA6uXlnENVmzdz8LIj0FSW28-XLyHTKKEAc/edit?usp=sharing; nm4867@nyu.edu)'}
+        response = requests.get(image_url, stream=True, headers=headers)
+        response.raise_for_status()  # Raise an error for HTTP errors
+
+        # Check if the response is an image
+        if "image" not in response.headers.get("Content-Type", ""):
+            raise ValueError(f"URL does not point to an image: {image_url}")
+
+        # Open the image
+        image = Image.open(response.raw).convert("RGB")
+        return image
+    
+    except Exception as e:
+        print(f"Error processing image URL {image_url}: {e}")
+        return None
+
+    # response = requests.get(image_url, stream=True)
+    # image = Image.open(response.raw).convert("RGB")
+    # return image
 
 # Step 4: Generate predictions
 def generate_prediction(processor, model, question, options, image_url):
     # Preprocess the image
     image = preprocess_image(image_url)
-    
+    if image is None:
+        raise ValueError(f"Invalid image at URL: {image_url}")
+
     # Combine the question with each option to create text inputs
     text_inputs = [f"{question} {opt}" for opt in options]
     
     # Preprocess inputs for the vision-language model
     inputs = processor(text=text_inputs, images=image, return_tensors="pt", padding=True)
+    print(f"Processor inputs: {inputs.keys()}")  # Should include 'input_ids' and 'pixel_values'
     
     # Generate predictions
     outputs = model(**inputs)
@@ -52,9 +74,23 @@ def evaluate_model(dataset, processor, model):
         correct_answer = entry["answer"]
         image_url = entry["image"]
 
+        image = preprocess_image(image_url)
+        if image is None:
+            print(f"Skipping entry due to invalid image: {image_url}")
+            continue
+
         # Generate prediction (get the index of the predicted option)
         predicted_index = generate_prediction(processor, model, question, options, image_url)
-        
+        predicted_option = options[predicted_index]
+
+        # Print the model's selection
+        print(f"Question: {question}")
+        print(f"Image URL: {image_url}")
+        print(f"Options: {options}")
+        print(f"Model's Selection: {predicted_option}")
+        print(f"Correct Answer: {correct_answer}")
+        print("-" * 50)
+
         # Compare the predicted option with the correct answer
         if options[predicted_index] == correct_answer:
             correct += 1
