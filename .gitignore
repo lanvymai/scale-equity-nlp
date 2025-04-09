@@ -1,1 +1,9 @@
 models/
+# SLURM logs
+*.out
+*.err
+*.swp
+
+# Data folders
+Data/
+laion_output/
