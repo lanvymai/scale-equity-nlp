@@ -6,6 +6,67 @@ import json
 import random
 import os
 
+dimensions = {
+    "geographic origin": {
+        "Indigenous Culture", "Culture of South Asia", "Culture of Europe", "Culture of North America",
+        "Culture of Africa", "Culture of Latin America", "Culture of East Asia", "Culture of Southeast Asia",
+        "Culture of Middle East", "Culture of Australia", "Culture of New Zealand"
+    # },
+    # "aesthetics / architecture": {
+    #     "Realism", "Modernism", "Minimalism", "Gothic architecture", "Baroque architecture", "Symbolism",
+    #     "Oral tradition", "Islamic architecture", "Buddhist architecture", "Vernacular architecture"
+    },
+    "philosophical roots": {
+        "Greco-Roman", "Enlightenment", "Christian", "Humanist", "Confucian", "Taoist", "Hindu", "Islamic",
+        "Buddhist", "Animist"
+    # },
+    # "cultural values": {
+    #     "Individualism", "Secularism", "Rationalism", "Liberalism", "Democracy", "Collectivism", "Spirituality",
+    #     "Tradition", "Hierarchy"
+    }
+}
+
+# Define group mappings
+western_categories = {
+    "Europe", "North America", "Australia", "New Zealand"
+    ,"Greco-Roman", "Enlightenment", "Christian", "Humanist"
+    #, "Individualism", "Secularism", "Rationalism", "Liberalism",
+    # "Democracy", "Realism", "Modernism", "Minimalism", "Gothic architecture", "Baroque architecture"
+}
+
+non_western_categories = {
+    "South Asia", "Southeast Asia", "Middle East", "East Asia", "Africa", "Latin America", "Indigenous Culture" 
+    ,"Confucian", "Taoist", "Hindu", "Islamic", "Buddhist", "Animist"
+    #, "Collectivism", "Spirituality", "Tradition", "Hierarchy", "Symbolism", "Oral tradition",
+    # "Islamic architecture", "Buddhist architecture", "Vernacular architecture"
+}
+
+continent_categories = {
+    "Europe": {"Europe"},
+    "North America": {"North America"},
+    "Oceania": {"Australia", "New Zealand"},
+    "Asia": {"South Asia", "Southeast Asia", "East Asia"},
+    "Middle East": {"Middle East"},
+    "Africa": {"Africa"},
+    "Latin America": {"Latin America"}
+}
+
+# Determine the dimension of a category
+def get_dimension(category):
+    for dimension, categories in dimensions.items():
+        if category in categories:
+            return dimension
+    return "unknown"
+
+# Function to determine if a category is Western or Non-Western
+def is_western(category):
+    if category in western_categories:
+        return "western"
+    elif category in non_western_categories:
+        return "non-western"
+    return "unknown"
+
+
 ## Write remove duplicates strings
 def remove_duplicates(strings):
     unique_counts = {}
@@ -29,9 +90,9 @@ def scrape_cate_for_links(cate_link):
         for link in j.find_all('a'):
             web_links.append(link.get('href'))
 
-    web_links = remove_duplicates(web_links) # remove duplicate links
-
-    return web_links # list of link
+    # web_links = remove_duplicates(web_links) # remove duplicate links
+    # return web_links # list of link
+    return list(set(web_links))
 
 # Function to scrape image-caption data from a Wikipedia page
 def get_data(link):
@@ -49,6 +110,8 @@ def get_data(link):
         for j in i.find_all('a'):
             for li in j.find_all('img'):
                 img['link_img'] = li.get('src')
+                if img['link_img'].startswith("//"):
+                    img['link_img'] = "https:" + img['link_img']
         for a in i.find_all('figcaption'):
             img['caption'] = a.text.strip()
         result.append(img)
@@ -64,6 +127,10 @@ def scrape_multiple_categories(categories):
         for page_link in links:
             try:
                 data = get_data(page_link)
+                for img in data:
+                    img["category"] = category
+                    img["dimension"] = get_dimension(category)
+                    img["western"] = is_western(category)
                 category_data.extend(data)
             except Exception as e:
                 print(f"Error processing link {page_link}: {e}")
@@ -103,7 +170,9 @@ def create_evaluation_dataset(dataset):
                 "image": img['link_img'],
                 "options": options,
                 "answer": correct_caption,
-                "category": category
+                "category": category,
+                "dimension": img["dimension"],
+                "western": img["western"]
             })
     return evaluation_set
 
@@ -117,20 +186,50 @@ def save_evaluation_dataset(evaluation_set, filename):
 if __name__ == "__main__":
     # Define categories and their links
     categories = {
+        # Geographic origin
         "Indigenous Culture": "https://en.wikipedia.org/wiki/Category:Indigenous_culture",
-        "Culture of South Asia": "https://en.wikipedia.org/wiki/Category:Culture_of_South_Asia",
-        "Culture of Europe": "https://en.wikipedia.org/wiki/Category:Culture_of_Europe",
-        "Culture of Africa": "https://en.wikipedia.org/wiki/Category:Culture_of_Africa",
-        "Culture of Latin America": "https://en.wikipedia.org/wiki/Category:Culture_of_Latin_America_by_country",
-        "Culture of East Asia": "https://en.wikipedia.org/wiki/Category:Culture_of_East_Asia",
-        "Culture of Southeast Asia": "https://en.wikipedia.org/wiki/Category:Culture_of_Southeast_Asia",
-        "Culture of Middle East": "https://en.wikipedia.org/wiki/Category:Culture_of_the_Middle_East",
-        "Gothic architecture": "https://en.wikipedia.org/wiki/Category:Gothic_architecture",
-        "Baroque architecture": "https://en.wikipedia.org/wiki/Category:Baroque_architecture",
-        "Islamic architecture": "https://en.wikipedia.org/wiki/Category:Islamic_architecture",
-        "Buddhist architecture": "https://en.wikipedia.org/wiki/Category:Buddhist_architecture",
-        "Vernacular architecture": "https://en.wikipedia.org/wiki/Category:Vernacular_architecture",
-        "Holidays": "https://en.wikipedia.org/wiki/Category:Public_holidays_by_country",
+        "South Asia": "https://en.wikipedia.org/wiki/Category:Culture_of_South_Asia",
+        "Europe": "https://en.wikipedia.org/wiki/Category:Culture_of_Europe",
+        "North America": "https://en.wikipedia.org/wiki/Category:Culture_of_North_America",
+        "Africa": "https://en.wikipedia.org/wiki/Category:Culture_of_Africa",
+        "Latin America": "https://en.wikipedia.org/wiki/Category:Culture_of_Latin_America_by_country",
+        "East Asia": "https://en.wikipedia.org/wiki/Category:Culture_of_East_Asia",
+        "Southeast Asia": "https://en.wikipedia.org/wiki/Category:Culture_of_Southeast_Asia",
+        "Middle East": "https://en.wikipedia.org/wiki/Category:Culture_of_the_Middle_East",
+        "Australia": "https://en.wikipedia.org/wiki/Category:Culture_of_Australia",
+        "New Zealand": "https://en.wikipedia.org/wiki/Category:Culture_of_New_Zealand",        
+        # # Aesthetics / Architecture
+        # "Realism": "https://en.wikipedia.org/wiki/Category:Realism",
+        # "Modernism": "https://en.wikipedia.org/wiki/Category:Modernism",
+        # "Minimalism": "https://en.wikipedia.org/wiki/Category:Minimalism",
+        # "Gothic architecture": "https://en.wikipedia.org/wiki/Category:Gothic_architecture",
+        # "Baroque architecture": "https://en.wikipedia.org/wiki/Category:Baroque_architecture",
+        # "Symbolism": "https://en.wikipedia.org/wiki/Category:Symbolism",
+        # "Oral tradition": "https://en.wikipedia.org/wiki/Category:Oral_tradition",
+        # "Islamic architecture": "https://en.wikipedia.org/wiki/Category:Islamic_architecture",
+        # "Buddhist architecture": "https://en.wikipedia.org/wiki/Category:Buddhist_architecture",
+        # "Vernacular architecture": "https://en.wikipedia.org/wiki/Category:Vernacular_architecture",
+        # Philosophical Roots
+        "Greco-Roman": "https://en.wikipedia.org/wiki/Category:Greco-Roman_world",
+        "Enlightenment": "https://en.wikipedia.org/wiki/Category:Age_of_Enlightenment",
+        "Christian": "https://en.wikipedia.org/wiki/Category:Christian_tradition",
+        "Humanist": "https://en.wikipedia.org/wiki/Category:Humanists",
+        "Confucian": "https://en.wikipedia.org/wiki/Category:Confucianism",
+        "Taoist": "https://en.wikipedia.org/wiki/Category:Taoism",
+        "Hindu": "https://en.wikipedia.org/wiki/Category:Hinduism",
+        "Islamic": "https://en.wikipedia.org/wiki/Category:Islam",
+        "Buddhist": "https://en.wikipedia.org/wiki/Category:Buddhism",
+        "Animist": "https://en.wikipedia.org/wiki/Category:Animists",
+        # # Cultural Values
+        # "Individualism": "https://en.wikipedia.org/wiki/Category:Individualism",
+        # "Secularism": "https://en.wikipedia.org/wiki/Category:Secularism",
+        # "Rationalism": "https://en.wikipedia.org/wiki/Category:Rationalism",
+        # "Liberalism": "https://en.wikipedia.org/wiki/Category:Liberalism",
+        # "Democracy": "https://en.wikipedia.org/wiki/Category:Democracy",
+        # "Collectivism": "https://en.wikipedia.org/wiki/Category:Collectivism",
+        # "Spirituality": "https://en.wikipedia.org/?title=Category:Spirituality&from=B",
+        # "Tradition": "https://en.wikipedia.org/wiki/Category:Tradition",
+        # "Hierarchy": "https://en.wikipedia.org/wiki/Category:Hierarchy"
     }
 
     # Step 1 & 2: Scrape data
@@ -143,4 +242,4 @@ if __name__ == "__main__":
     evaluation_set = create_evaluation_dataset(dataset)
 
     # Step 5: Save evaluation dataset
-    save_evaluation_dataset(evaluation_set, "evaluation_dataset.json")
+    save_evaluation_dataset(evaluation_set, "evaluation_dataset_v2.json")
