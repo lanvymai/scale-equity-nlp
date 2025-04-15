@@ -211,7 +211,7 @@ if __name__ == "__main__":
                     "using a multiple-choice paradigm for a visual question-answering task.")
     
     parser.add_argument("--model", type=str, required=True,
-                        help="Name of the Hugging Face model to use (e.g., openai/clip-vit-base-patch32)")
+                        help="Path of the model to use (e.g., openai/clip-vit-base-patch32)")
     parser.add_argument("--dataset", type=str, default="/scale-equity-nlp/output_files/evaluation_dataset.json",
                         help="Path to the evaluation dataset (default: evaluation_dataset.json)")
     parser.add_argument("--output", type=str, default="/scale-equity-nlp/output_files/model_results.json",
@@ -229,8 +229,9 @@ if __name__ == "__main__":
         dataset = dataset[:10]
     
     # Load the pipeline
+    """ CHANGE MODEL PATH ACCORDINGLY """
     model_path = "/teamspace/studios/this_studio/scale-equity-nlp/models/llava-v1.5-7b/models--llava-hf--llava-1.5-7b-hf/snapshots/6ceb2ed33cb8f107a781c431fe2e61574da69369"
-    pipe = load_pipeline(model_path)
+    pipe = load_pipeline(args.model)
     
     # Evaluate the model
     accuracy = evaluate_model(dataset, pipe, args.output)
