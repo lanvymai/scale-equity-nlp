@@ -212,9 +212,9 @@ if __name__ == "__main__":
     
     parser.add_argument("--model", type=str, required=True,
                         help="Name of the Hugging Face model to use (e.g., openai/clip-vit-base-patch32)")
-    parser.add_argument("--dataset", type=str, default="evaluation_dataset.json",
+    parser.add_argument("--dataset", type=str, default="/scale-equity-nlp/output_files/evaluation_dataset.json",
                         help="Path to the evaluation dataset (default: evaluation_dataset.json)")
-    parser.add_argument("--output", type=str, default="model_results.json",
+    parser.add_argument("--output", type=str, default="/scale-equity-nlp/output_files/model_results.json",
                         help="Path to save the model's selection results (default: model_results.json)")    
     parser.add_argument("--debug", action="store_true",
                         help="Use a small dataset during debugging")
