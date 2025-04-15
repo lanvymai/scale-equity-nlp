@@ -64,7 +64,9 @@ def generate_prediction(processor, model, question, options, image_url):
                         truncation=True,  # Truncate text inputs
                         max_length=77)    # CLIP's max length is 77 tokens
     # print(f"Processor inputs: {inputs.keys()}")  # Should include 'input_ids' and 'pixel_values'
-    
+    # print(f"Text inputs: {text_inputs}")
+    # print(f"Input IDs shape: {inputs['input_ids'].shape}")
+    # print(f"Pixel values shape: {inputs['pixel_values'].shape}")
     # Generate predictions
     outputs = model(**inputs)
     logits_per_text = outputs.logits_per_text  # Text-to-image similarity scores
@@ -246,7 +248,7 @@ if __name__ == "__main__":
     group_accuracies = calculate_accuracy_by_group(dataset, processor, model)
 
     # Save the results
-    save_group_accuracy(group_accuracies, "group_accuracy_results.json")
+    save_group_accuracy(group_accuracies, "group_accuracy_results_final.json")
 
     # Print the results
     print(f"Model: {args.model}")

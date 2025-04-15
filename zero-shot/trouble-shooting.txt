@@ -6,3 +6,12 @@
 ```pip uninstall pillow```
 ```pip install --no-cache-dir pillow```
 ```pip install -r requirements_openclip.txt```
+
+2. ave 'arm64', need 'x86_64')), '/System/Volumes/Preboot/Cryptexes/OS/Users/maingoclanvy/scale-equity-nlp/zero-shot/.venv/lib/python3.11/site-packages/PIL/_imaging.cpython-311-darwin.so' (no such file), '/Users/maingoclanvy/scale-equity-nlp/zero-shot/.venv/lib/python3.11/site-packages/PIL/_imaging.cpython-311-darwin.so' (mach-o file, but is an incompatible architecture (have 'arm64', need 'x86_64'))
+```deactivate```
+```rm -rf .venv```
+```python3 -m venv .venv```
+```source .venv/bin/activate```
+```pip uninstall pillow```
+```pip install --no-cache-dir pillow```
+```pip install -r requirements_openclip.txt```
