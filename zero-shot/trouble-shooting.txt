@@ -1,0 +1,8 @@
+1. ImportError: dlopen(/Users/maingoclanvy/scale-equity-nlp/zero-shot/.venv/lib/python3.11/site-packages/PIL/_imaging.cpython-311-darwin.so, 0x0002): symbol not found in flat namespace '_jpeg_resync_to_restart'
+```deactivate```
+```rm -rf .venv```
+```python3 -m venv .venv```
+```source .venv/bin/activate```
+```pip uninstall pillow```
+```pip install --no-cache-dir pillow```
+```pip install -r requirements_openclip.txt```
