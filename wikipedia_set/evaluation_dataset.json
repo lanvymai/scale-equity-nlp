@@ -33488,17 +33488,6 @@
         "western": "western"
     },
     {
-        "question": "What does this image show?",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nicene_and_Post-Nicene_Fathers.jpg/250px-Nicene_and_Post-Nicene_Fathers.jpg",
-        "options": [
-            "Nicene and Post-Nicene Fathers, volume of writings from the Church Fathers"
-        ],
-        "answer": "Nicene and Post-Nicene Fathers, volume of writings from the Church Fathers",
-        "category": "Christian",
-        "dimension": "philosophical roots",
-        "western": "western"
-    },
-    {
         "question": "What is this a picture of?",
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Olha_and_Ivan_Franko.png/250px-Olha_and_Ivan_Franko.png",
         "options": [
@@ -78813,30 +78802,6 @@
         ],
         "answer": "Huge rallies like this one in Kolkata are commonplace in India.",
         "category": "Individualism",
-        "dimension": "cultural values",
-        "western": "western"
-    },
-    {
-        "question": "Select the label that is most likely the topic of this image.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Holyoake2.JPG/170px-Holyoake2.JPG",
-        "options": [
-            "Countries with a state religion",
-            "The British writer George Holyoake (1817\u20131906) employed the term \"secularism\" in 1851.[16]"
-        ],
-        "answer": "The British writer George Holyoake (1817\u20131906) employed the term \"secularism\" in 1851.[16]",
-        "category": "Secularism",
-        "dimension": "cultural values",
-        "western": "western"
-    },
-    {
-        "question": "Which caption best matches this image?",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/State_Religions.svg/250px-State_Religions.svg.png",
-        "options": [
-            "The British writer George Holyoake (1817\u20131906) employed the term \"secularism\" in 1851.[16]",
-            "Countries with a state religion"
-        ],
-        "answer": "Countries with a state religion",
-        "category": "Secularism",
         "dimension": "cultural values",
         "western": "western"
     },
