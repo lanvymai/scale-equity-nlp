@@ -37,9 +37,6 @@ def preprocess_image(image_url):
         print(f"Error processing image URL {image_url}: {e}")
         return None
 
-    # response = requests.get(image_url, stream=True)
-    # image = Image.open(response.raw).convert("RGB")
-    # return image
 
 # Step 4: Generate predictions
 def generate_prediction(processor, model, question, options, image_url):

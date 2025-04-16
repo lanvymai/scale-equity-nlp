@@ -64,18 +64,19 @@ def generate_prediction(pipe, question, options, image_url):
         return None  # Return None if the image is invalid
 
     max_new_tokens = 200
-    a, b, c, d = options
+    # a, b, c, d = options
 
-    prompt = f'USER: <image>\n{question}\nOPTIONS: {a}, {b}, {c}, {d}\nASSISTANT:'
-    print("PROMPT: ", prompt)
+    prompt = f'USER: <image>\n{question}\nOPTIONS:{options}\nASSISTANT:'
+    # print("PROMPT: ", prompt)
 
     outputs = pipe(image, text=prompt, generate_kwargs={"max_new_tokens": max_new_tokens})
 
     full_text = outputs[0]['generated_text']
     model_output = full_text.split("ASSISTANT:")[-1].strip()
-    print("MODEL PREDICTION: ", model_output)
+    prediction = model_output
 
-    return model_output
+    print("MODEL PREDICTION: ", prediction)
+    return prediction
 
 # Step 5: Evaluate the model
 def evaluate_model(dataset, pipe, output_file):
@@ -212,9 +213,9 @@ if __name__ == "__main__":
     
     parser.add_argument("--model", type=str, required=True,
                         help="Path of the model to use (e.g., openai/clip-vit-base-patch32)")
-    parser.add_argument("--dataset", type=str, default="/scale-equity-nlp/output_files/evaluation_dataset.json",
+    parser.add_argument("--dataset", type=str, default="evaluation_dataset.json",
                         help="Path to the evaluation dataset (default: evaluation_dataset.json)")
-    parser.add_argument("--output", type=str, default="/scale-equity-nlp/output_files/model_results.json",
+    parser.add_argument("--output", type=str, default="scale-equity-nlp/output_files/model_results.json",
                         help="Path to save the model's selection results (default: model_results.json)")    
     parser.add_argument("--debug", action="store_true",
                         help="Use a small dataset during debugging")
@@ -240,7 +241,7 @@ if __name__ == "__main__":
     group_accuracies = calculate_accuracy_by_group(dataset, pipe)
 
     # Save the results
-    save_group_accuracy(group_accuracies, "llava_group_accuracy_results_debug.json")
+    save_group_accuracy(group_accuracies, "/teamspace/studios/this_studio/scale-equity-nlp/output_files/llava_group_accuracy_results_debug.json")
 
     # Print the results
     print(f"Model: {args.model}")
