@@ -1,6 +1,8 @@
 import argparse
 import json
 from PIL import Image
+from tqdm import tqdm  # For progress bars
+import time
 import requests
 import torch
 from transformers import AutoProcessor, BitsAndBytesConfig, pipeline
@@ -25,7 +27,7 @@ def load_pipeline(model_path):
                     tokenizer=processor.tokenizer,
                     image_processor=processor.image_processor,
                     model_kwargs={"quantization_config": quantization_config})
-    print("pipeline loaded")
+    print("Pipeline loaded")
 
     return pipe
 
@@ -43,7 +45,7 @@ def preprocess_image(image_url):
             raise ValueError(f"URL does not point to an image: {image_url}")
 
         # Open the image
-        image = Image.open(response.raw)
+        image = Image.open(response.raw).convert("RGB")
         return image
     
     except requests.exceptions.RequestException as e:
@@ -58,70 +60,32 @@ def preprocess_image(image_url):
 
 # Step 4: Generate predictions
 def generate_prediction(pipe, question, options, image_url):
+
+    letter_mapping_dct = {'A': 0, 'B': 1, 'C': 2, 'D': 3}
+
     # Preprocess the image
     image = preprocess_image(image_url)
     if image is None:
         return None  # Return None if the image is invalid
 
     max_new_tokens = 200
-    # a, b, c, d = options
+    a, b, c, d = options
 
-    prompt = f'USER: <image>\n{question}\nOPTIONS:{options}\nASSISTANT:'
-    # print("PROMPT: ", prompt)
+    prompt = f"USER: <image>\n{question} Answer with only the option's letter from the given choices directly.\nOPTIONS:\nA. {a}\nB. {b}\nC. {c}\nD. {d}\nASSISTANT:"
 
     outputs = pipe(image, text=prompt, generate_kwargs={"max_new_tokens": max_new_tokens})
 
     full_text = outputs[0]['generated_text']
-    model_output = full_text.split("ASSISTANT:")[-1].strip()
-    prediction = model_output
+    prediction = full_text.split("ASSISTANT:")[-1].strip()
 
-    print("MODEL PREDICTION: ", prediction)
-    return prediction
+    if prediction in letter_mapping_dct:
+        predicted_index = letter_mapping_dct[prediction]
+    else:
+        return None
 
-# Step 5: Evaluate the model
-def evaluate_model(dataset, pipe, output_file):
-    correct = 0
-    total = 0
-    results = []  # List to store results for saving
+    return predicted_index
 
-    for entry in dataset:
-        question = entry["question"]
-        options = entry["options"]
-        correct_answer = entry["answer"]
-        image_url = entry["image"]
-        category = entry["category"]
 
-        # Generate prediction (get the index of the predicted option)
-        predicted_output = generate_prediction(pipe, question, options, image_url)
-        if predicted_output is None:
-            continue  # Skip this entry if the image is invalid
-        
-        # Store the result
-        result = {
-            "question": question,
-            "image": image_url,
-            "options": options,
-            "model_selection": predicted_output,
-            "correct_answer": correct_answer,
-            "is_correct": predicted_output == correct_answer
-        }
-        results.append(result)
-
-        # Compare the predicted option with the correct answer
-        if predicted_output == correct_answer:
-            correct += 1
-        total += 1
-
-    # Save results to a file
-    with open(output_file, "w") as f:
-        json.dump(results, f, indent=4)
-    print(f"Results saved to {output_file}")
-    
-    # Calculate accuracy
-    accuracy = correct / total * 100
-    return accuracy
-
-# Step 6: Evaluate Group Accuracy
 # Define group mappings
 western_categories = {
     "Europe", "North America", "Australia", "New Zealand", "Greco-Roman", "Enlightenment",
@@ -147,27 +111,51 @@ continent_categories = {
     "Latin America": {"Latin America"}
 }
 
-def calculate_accuracy_by_group(evaluation_set, pipe):
+# Step 5: Evaluate the model & Evaluate Group Accuracy
+def evaluate_model(dataset, pipe, output_file):
+    num_correct = 0
+    num_q = 0
+    results = []  # List to store results for saving
+
+    start_time = time.time()  # Start timing the evaluation
+
     group_accuracies = {
         "Western": {"correct": 0, "total": 0},
         "Non-Western": {"correct": 0, "total": 0},
         "Continents": {continent: {"correct": 0, "total": 0} for continent in continent_categories}
     }
 
-    for entry in evaluation_set:
+    for entry in tqdm(dataset, desc="Evaluating entries", ncols=100):
         question = entry["question"]
         options = entry["options"]
         correct_answer = entry["answer"]
         image_url = entry["image"]
         category = entry["category"]
-        
 
         # Generate prediction (get the index of the predicted option)
-        predicted_option = generate_prediction(pipe, question, options, image_url)
-        if predicted_option is None:
+        predicted_index = generate_prediction(pipe, question, options, image_url)
+        if predicted_index is None:
             continue  # Skip this entry if the image is invalid
 
-        # Western vs. Non-Western
+        predicted_output = options[predicted_index]
+
+        # Store the result
+        result = {
+            "question": question,
+            "image": image_url,
+            "options": options,
+            "model_selection": predicted_output,
+            "correct_answer": correct_answer,
+            "is_correct": predicted_output == correct_answer
+        }
+        results.append(result)
+
+        # Compare the predicted option with the correct answer
+        if predicted_output == correct_answer:
+            num_correct += 1
+        num_q += 1
+
+         # Western vs. Non-Western
         if category in western_categories:
             group = "Western"
         elif category in non_western_categories:
@@ -176,14 +164,14 @@ def calculate_accuracy_by_group(evaluation_set, pipe):
             continue
 
         group_accuracies[group]["total"] += 1
-        if predicted_option == correct_answer:
+        if predicted_output == correct_answer:
             group_accuracies[group]["correct"] += 1
 
         # Continents
         for continent, categories in continent_categories.items():
             if category in categories:
                 group_accuracies["Continents"][continent]["total"] += 1
-                if predicted_option == correct_answer:
+                if predicted_output == correct_answer:
                     group_accuracies["Continents"][continent]["correct"] += 1
 
     # Calculate accuracy percentages
@@ -197,9 +185,25 @@ def calculate_accuracy_by_group(evaluation_set, pipe):
         total = stats["total"]
         stats["accuracy"] = (correct / total * 100) if total > 0 else 0
 
-    return group_accuracies
 
-# Step 7: Save group accuracy results
+    elapsed = time.time() - start_time  # Total time elapsed
+    # Show minutes and seconds separately
+    m, s = divmod(elapsed, 60)
+    print(f"Total evaluation time: {int(m)} minutes and {s:.2f} seconds")
+
+
+    # Save results to a file
+    with open(output_file, "w") as f:
+        json.dump(results, f, indent=4)
+    print(f"Results saved to {output_file}")
+    
+    # Calculate accuracy
+    accuracy = num_correct / num_q * 100
+
+    return accuracy, group_accuracies
+
+
+# Step 6: Save group accuracy results
 def save_group_accuracy(group_accuracies, filename):
     with open(filename, 'w') as f:
         json.dump(group_accuracies, f, indent=4)
@@ -211,8 +215,8 @@ if __name__ == "__main__":
         description="Evaluates a vision-language model on Wikipedia Evaluation Dataset "
                     "using a multiple-choice paradigm for a visual question-answering task.")
     
-    parser.add_argument("--model", type=str, required=True,
-                        help="Path of the model to use (e.g., openai/clip-vit-base-patch32)")
+    # parser.add_argument("--model", type=str, required=True,
+    #                     help="Path of the model to use (e.g., openai/clip-vit-base-patch32)")
     parser.add_argument("--dataset", type=str, default="evaluation_dataset.json",
                         help="Path to the evaluation dataset (default: evaluation_dataset.json)")
     parser.add_argument("--output", type=str, default="scale-equity-nlp/output_files/model_results.json",
@@ -232,17 +236,14 @@ if __name__ == "__main__":
     # Load the pipeline
     """ CHANGE MODEL PATH ACCORDINGLY """
     model_path = "/teamspace/studios/this_studio/scale-equity-nlp/models/llava-v1.5-7b/models--llava-hf--llava-1.5-7b-hf/snapshots/6ceb2ed33cb8f107a781c431fe2e61574da69369"
-    pipe = load_pipeline(args.model)
+    pipe = load_pipeline(model_path) # Change back to args.model later
     
-    # Evaluate the model
-    accuracy = evaluate_model(dataset, pipe, args.output)
-    
-    # Calculate group accuracy
-    group_accuracies = calculate_accuracy_by_group(dataset, pipe)
+    # Evaluate the model & Calculate group accuracy
+    accuracy, group_accuracies = evaluate_model(dataset, pipe, args.output)
 
     # Save the results
-    save_group_accuracy(group_accuracies, "/teamspace/studios/this_studio/scale-equity-nlp/output_files/llava_group_accuracy_results_debug.json")
+    save_group_accuracy(group_accuracies, "/teamspace/studios/this_studio/scale-equity-nlp/output_files/llava_group_accuracy_results_all.json")
 
     # Print the results
-    print(f"Model: {args.model}")
+    # print(f"Model: {args.model}")
     print(f"Accuracy: {accuracy:.2f}%")

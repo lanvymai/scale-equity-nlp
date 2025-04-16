@@ -5,9 +5,9 @@
         "accuracy": 0
     },
     "Non-Western": {
-        "correct": 2,
+        "correct": 6,
         "total": 8,
-        "accuracy": 25.0
+        "accuracy": 75.0
     },
     "Continents": {
         "Europe": {

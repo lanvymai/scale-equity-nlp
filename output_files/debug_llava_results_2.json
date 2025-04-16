@@ -21,9 +21,9 @@
             "The earliest known depiction of a Siberian shaman, by the Dutch explorer Nicolaes Witsen, 17th century. Witsen called him a \"priest of the Devil\" and drew clawed feet for the supposed demonic qualities.[6]",
             "Black Christ of Esquipulas at Saint Joseph Cathedral of Antigua Guatemala"
         ],
-        "model_selection": "The subject of this photo is a statue of Jesus Christ.",
+        "model_selection": "Black Christ of Esquipulas at Saint Joseph Cathedral of Antigua Guatemala",
         "correct_answer": "Black Christ of Esquipulas at Saint Joseph Cathedral of Antigua Guatemala",
-        "is_correct": false
+        "is_correct": true
     },
     {
         "question": "What is the subject of this photo?",
@@ -34,9 +34,9 @@
             "Buryat shaman on Olkhon Island, Siberia",
             "Main altar with the Our Lord of Chalma in the State of Mexico"
         ],
-        "model_selection": "The subject of this photo is a church with a large statue of Jesus.",
+        "model_selection": "Main altar with the Our Lord of Chalma in the State of Mexico",
         "correct_answer": "Main altar with the Our Lord of Chalma in the State of Mexico",
-        "is_correct": false
+        "is_correct": true
     },
     {
         "question": "Select the label that is most likely the topic of this image.",
@@ -60,9 +60,9 @@
             "An American yurt with a deck. Permanently located in Kelleys Island State Park",
             "Cruck framing, Leigh Court Barn, Worcester, England"
         ],
-        "model_selection": "'An American yurt with a deck. Permanently located in Kelleys Island State Park'",
+        "model_selection": "An American yurt with a deck. Permanently located in Kelleys Island State Park",
         "correct_answer": "An American yurt with a deck. Permanently located in Kelleys Island State Park",
-        "is_correct": false
+        "is_correct": true
     },
     {
         "question": "Which caption best matches this image?",
@@ -73,9 +73,9 @@
             "The baserri at the Chillida Museum in Hernani",
             "Corner post log construction in Lancaster, PA"
         ],
-        "model_selection": "'Yurts in the tourist camp, Mongolia'",
+        "model_selection": "Yurts in the tourist camp, Mongolia",
         "correct_answer": "Yurts in the tourist camp, Mongolia",
-        "is_correct": false
+        "is_correct": true
     },
     {
         "question": "Which of the following best describes this image?",
@@ -86,7 +86,7 @@
             "Interior of the El Ghriba synagogue in Djerba, Tunisia",
             "View of the upper walls and turrets of the Kasbah Amridil in Skoura, decorated with geometric motifs"
         ],
-        "model_selection": "A Muslim kindergarten in Yangzhou, China",
+        "model_selection": "A 14th-century mosque of Mir Sayyid Ali Hamadani in Srinagar, Jammu and Kashmir, India",
         "correct_answer": "Interior of the El Ghriba synagogue in Djerba, Tunisia",
         "is_correct": false
     },
