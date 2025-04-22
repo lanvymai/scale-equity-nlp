@@ -4,10 +4,11 @@ from concurrent.futures import ThreadPoolExecutor
 import os
 import hashlib
 
-image_dir = "/scratch/ez2545/scale-equity-nlp/images"
+netID = "nm4867"  # Replace with your actual netID
+image_dir = "/scratch/{netID}/scale-equity-nlp/images"
 os.makedirs(image_dir, exist_ok=True)
 
-parquet_path = "/scratch/ez2545/scale-equity-nlp/Data/laion400m.parquet"
+parquet_path = "/scratch/{netID}/scale-equity-nlp/Data/laion400m.parquet"
 df_iter = pd.read_parquet(parquet_path, engine="pyarrow", columns=["url", "caption"], iterator=True)
 
 def clean_filename(text, length=50):
