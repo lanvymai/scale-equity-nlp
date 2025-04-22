@@ -8,6 +8,8 @@ from peft import LoraConfig, get_peft_model
 from tqdm import tqdm
 from itertools import islice
 
+Image.MAX_IMAGE_PIXELS = None
+
 shard_path = "/scratch/ez2545/scale-equity-nlp/laion_output/shard_1"
 model_path = "/scratch/ez2545/models/CLIP-ViT-L-14/models--openai--clip-vit-base-patch32/snapshots/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268"
 subset_size = 450000
@@ -55,17 +57,18 @@ dataset = (
 )
 
 def random_subsample(dataset, subset_size):
-    return islice(dataset, subset_size)
+    return list(islice(dataset, subset_size))
+
 subset_dataset = random_subsample(dataset, subset_size)
+
+print(f"✅ Expected subset size: {subset_size}")
+actual_len = sum(1 for _ in subset_dataset)
+print(f"✅ valid image-text pairs: {actual_len}")
 
 def collate_fn(batch):
     images, texts = zip(*batch)
     inputs = processor(text=list(texts), images=list(images), return_tensors="pt", padding=True, truncation=True)
     return {k: v.to(device) for k, v in inputs.items()}
-
-print(f"✅ Expected subset size: {subset_size}")
-actual_len = sum(1 for _ in subset_dataset)
-print(f"✅ Valid image-text pairs: {actual_len}")
 
 dataloader = DataLoader(subset_dataset, batch_size=batch_size, collate_fn=collate_fn)
 
