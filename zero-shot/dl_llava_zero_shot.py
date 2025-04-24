@@ -155,7 +155,7 @@ def evaluate_model(dataset, pipe, output_file):
             num_correct += 1
         num_q += 1
 
-         # Western vs. Non-Western
+        # Western vs. Non-Western
         if category in western_categories:
             group = "Western"
         elif category in non_western_categories:
