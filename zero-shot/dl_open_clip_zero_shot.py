@@ -128,11 +128,6 @@ def evaluate_model(dataset, processor, model, output_file):
             category = entry["category"]
 
 
-            # image = preprocess_image(image_url)
-            # if image is None:
-            #     print(f"Skipping entry due to invalid image: {image_url}")
-            #     continue
-
             # Generate prediction (get the index of the predicted option)
             predicted_index = generate_prediction(processor, model, question, options, image_url)
 
@@ -140,23 +135,6 @@ def evaluate_model(dataset, processor, model, output_file):
                 continue  # Skip this entry if the image is invalid
 
             predicted_option = options[predicted_index]
-
-            # Print the model's selection
-            # print(f"Question: {question}")
-            # print(f"Image URL: {image_url}")
-            # print(f"Options: {options}")
-            # print(f"Model's Selection: {predicted_option}")
-            # print(f"Correct Answer: {correct_answer}")
-            # print("-" * 50)
-
-            # new_key = f"Question {total}"
-            # output_dct[new_key] = {
-            #     "question": question,  
-            #     "image_url": image_url,
-            #     "options": options,
-            #     "model_prediction": predicted_option,
-            #     "correct_answer": correct_answer
-            # }
 
             # Store the result
             result = {

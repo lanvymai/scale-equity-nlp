@@ -1,0 +1,49 @@
+{
+    "Western": {
+        "correct": 2114,
+        "total": 2649,
+        "accuracy": 79.80369950924877
+    },
+    "Non-Western": {
+        "correct": 2923,
+        "total": 3694,
+        "accuracy": 79.12831618841363
+    },
+    "Continents": {
+        "Europe": {
+            "correct": 221,
+            "total": 248,
+            "accuracy": 89.11290322580645
+        },
+        "North America": {
+            "correct": 22,
+            "total": 29,
+            "accuracy": 75.86206896551724
+        },
+        "Oceania": {
+            "correct": 254,
+            "total": 278,
+            "accuracy": 91.36690647482014
+        },
+        "Asia": {
+            "correct": 411,
+            "total": 470,
+            "accuracy": 87.44680851063829
+        },
+        "Middle East": {
+            "correct": 214,
+            "total": 243,
+            "accuracy": 88.06584362139918
+        },
+        "Africa": {
+            "correct": 157,
+            "total": 172,
+            "accuracy": 91.27906976744185
+        },
+        "Latin America": {
+            "correct": 203,
+            "total": 240,
+            "accuracy": 84.58333333333333
+        }
+    }
+}
