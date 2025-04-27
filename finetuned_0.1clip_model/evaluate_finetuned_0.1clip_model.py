@@ -50,28 +50,32 @@ def preprocess_image(image_url):
 
 # Step 4: Generate predictions
 def generate_prediction(processor, model, question, options, image_url):
-    # Preprocess the image
-    image = preprocess_image(image_url)
-    if image is None:
-        return None # Return None if the image is invalid
-        #raise ValueError(f"Invalid image at URL: {image_url}")
+    try: # Preprocess the image
+        image = preprocess_image(image_url)
+        if image is None:
+            return None # Return None if the image is invalid
+            #raise ValueError(f"Invalid image at URL: {image_url}")
 
-    # Combine the question with each option to create text inputs
-    text_inputs = [f"{question} {opt}" for opt in options]
-    
-    # Preprocess inputs for the vision-language model
-    inputs = processor(text=text_inputs, images=image, return_tensors="pt", padding=True, truncation=True, max_length=77)
-    # print(f"Processor inputs: {inputs.keys()}")  # Should include 'input_ids' and 'pixel_values'
-    
-    # Generate predictions
-    outputs = model(**inputs)
-    logits_per_text = outputs.logits_per_text  # Text-to-image similarity scores
-    probs = logits_per_text.softmax(dim=1)  # Convert to probabilities
-    
-    # Find the most likely option
-    predicted_index = probs.argmax().item()
-    return predicted_index
+        # Combine the question with each option to create text inputs
+        text_inputs = [f"{question} {opt}" for opt in options]
+        
+        # Preprocess inputs for the vision-language model
+        inputs = processor(text=text_inputs, images=image, return_tensors="pt", padding=True, truncation=True, max_length=77)
+        # print(f"Processor inputs: {inputs.keys()}")  # Should include 'input_ids' and 'pixel_values'
+        
+        # Generate predictions
+        outputs = model(**inputs)
+        logits_per_text = outputs.logits_per_text  # Text-to-image similarity scores
+        probs = logits_per_text.softmax(dim=0)  # Convert to probabilities
+        
+        # Find the most likely option
+        predicted_index = probs.argmax().item()
+        return predicted_index, probs.squeeze().tolist()  # Return probabilities as a list
 
+    except Exception as e:
+        print(f"Error during prediction for image URL {image_url}: {e}")
+        return None
+    
 def save_outputs(output_data, accuracy, filename="outputs.json"):
     # Save the outputs to a JSON file
     with open("outputs.json", "a") as f:
@@ -111,6 +115,8 @@ def evaluate_model(dataset, processor, model, output_file):
     num_correct = 0
     num_q = 0
     results = []  # List to store results for saving
+    skipped = 0  # Counter for skipped examples
+    skipped_examples = []  # List to store skipped examples
     # correct = 0
     # total = 0
     # output_dct = {}
@@ -137,10 +143,21 @@ def evaluate_model(dataset, processor, model, output_file):
             #     continue
 
             # Generate prediction (get the index of the predicted option)
-            predicted_index = generate_prediction(processor, model, question, options, image_url)
+            prediction = generate_prediction(processor, model, question, options, image_url)
 
-            if predicted_index is None:
-                continue  # Skip this entry if the image is invalid
+            # Handle invalid predictions
+            if prediction is None:
+                skipped += 1  # Increment the skipped counter
+                skipped_examples.append({
+                    "question": question,
+                    "options": options,
+                    "correct_answer": correct_answer,
+                    "image_url": image_url,
+                    "category": category
+                })
+                continue
+
+            predicted_index, probs = prediction  # Unpack the valid prediction
 
             predicted_option = options[predicted_index]
 
@@ -168,7 +185,9 @@ def evaluate_model(dataset, processor, model, output_file):
                 "options": options,
                 "model_selection": predicted_option,
                 "correct_answer": correct_answer,
-                "is_correct": predicted_option == correct_answer
+                "is_correct": predicted_option == correct_answer,
+                "category": category,
+                "probabilities": {opt: prob for opt, prob in zip(options, probs)}  # Map options to probabilities
             }
             results.append(result)
             
@@ -258,7 +277,7 @@ if __name__ == "__main__":
 
     # Use only 10 examples if in debug mode
     if args.debug:
-        dataset = dataset[:10]
+        dataset = dataset[:50]
     
     # Paths to the base model and adapter weights
     base_model_path = "/Users/maingoclanvy/scale-equity-nlp/models/CLIP-ViT-B-32/models--openai--clip-vit-base-patch32/snapshots/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268"

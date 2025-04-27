@@ -42,28 +42,34 @@ def preprocess_image(image_url):
 
 # Step 4: Generate predictions
 def generate_prediction(processor, model, question, options, image_url):
-    # Preprocess the image
-    image = preprocess_image(image_url)
-    if image is None:
-        return None # Return None if the image is invalid
-        #raise ValueError(f"Invalid image at URL: {image_url}")
+    try:
+        # Preprocess the image
+        image = preprocess_image(image_url)
+        if image is None:
+            return None # Return None if the image is invalid
+            #raise ValueError(f"Invalid image at URL: {image_url}")
 
-    # Combine the question with each option to create text inputs
-    text_inputs = [f"{question} {opt}" for opt in options]
+        # Combine the question with each option to create text inputs
+        text_inputs = [f"{question} {opt}" for opt in options]
+        
+        # Preprocess inputs for the vision-language model
+        inputs = processor(text=text_inputs, images=image, return_tensors="pt", padding=True, truncation=True, max_length=77)
+        # print(f"Processor inputs: {inputs.keys()}")  # Should include 'input_ids' and 'pixel_values'
+        
+        # Generate predictions
+        outputs = model(**inputs)
+        logits_per_text = outputs.logits_per_text  # Text-to-image similarity scores
+        probs = logits_per_text.softmax(dim=0)  # Convert to probabilities
+        
+        # Find the most likely option
+        predicted_index = probs.argmax().item()
+        # print(f"logits_per_text shape: {logits_per_text.shape}")
+        return predicted_index, probs.squeeze().tolist()  # Return probabilities as a list
+        
     
-    # Preprocess inputs for the vision-language model
-    inputs = processor(text=text_inputs, images=image, return_tensors="pt", padding=True, truncation=True, max_length=77)
-    # print(f"Processor inputs: {inputs.keys()}")  # Should include 'input_ids' and 'pixel_values'
-    
-    # Generate predictions
-    outputs = model(**inputs)
-    logits_per_text = outputs.logits_per_text  # Text-to-image similarity scores
-    probs = logits_per_text.softmax(dim=1)  # Convert to probabilities
-    
-    # Find the most likely option
-    predicted_index = probs.argmax().item()
-    return predicted_index
-
+    except Exception as e:
+        print(f"Error during prediction for image URL {image_url}: {e}")
+        return None
 
 def save_outputs(output_data, accuracy, filename="outputs.json"):
     # Save the outputs to a JSON file
@@ -73,7 +79,6 @@ def save_outputs(output_data, accuracy, filename="outputs.json"):
 
         # Save the accuracy in same file
         f.write(f"Accuracy: {accuracy:.2f}%\n")
-
 
 # Define group mappings
 western_categories = {
@@ -100,13 +105,14 @@ continent_categories = {
     "Latin America": {"Latin America"}
 }
 
-
-
 # Step 5: Evaluate the model
-def evaluate_model(dataset, processor, model, output_file):
+def evaluate_model(dataset, processor, model, output_file, skipped_file):
     num_correct = 0
     num_q = 0
     results = []  # List to store results for saving
+    skipped = 0  # Counter for skipped examples
+    skipped_examples = []  # List to store skipped examples
+    
     # correct = 0
     # total = 0
     # output_dct = {}
@@ -120,30 +126,43 @@ def evaluate_model(dataset, processor, model, output_file):
     }
 
     with tqdm(dataset, desc="Evaluating", unit="item", total=len(dataset)) as pbar:
-        for entry in pbar:
+        for idx, entry in enumerate(pbar):
             question = entry["question"]
             options = entry["options"]
             correct_answer = entry["answer"]
             image_url = entry["image"]
             category = entry["category"]
 
-
             # Generate prediction (get the index of the predicted option)
-            predicted_index = generate_prediction(processor, model, question, options, image_url)
+            prediction = generate_prediction(processor, model, question, options, image_url)
 
-            if predicted_index is None:
-                continue  # Skip this entry if the image is invalid
+            # Handle invalid predictions
+            # Handle invalid predictions
+            if prediction is None:
+                skipped += 1  # Increment the skipped counter
+                skipped_examples.append({
+                    "id": idx,
+                    "question": question,
+                    "options": options,
+                    "correct_answer": correct_answer,
+                    "image_url": image_url,
+                    "category": category
+                })
+                continue
 
+            predicted_index, probs = prediction  # Unpack the valid prediction
             predicted_option = options[predicted_index]
 
             # Store the result
             result = {
+                "id": idx,
                 "question": question,
                 "image": image_url,
                 "options": options,
                 "model_selection": predicted_option,
                 "correct_answer": correct_answer,
-                "is_correct": predicted_option == correct_answer
+                "is_correct": predicted_option == correct_answer,
+                "probabilities": {opt: prob for opt, prob in zip(options, probs)}  # Map options to probabilities
             }
             results.append(result)
             
@@ -171,6 +190,15 @@ def evaluate_model(dataset, processor, model, output_file):
                     if predicted_option == correct_answer:
                         group_accuracies["Continents"][continent]["correct"] += 1
 
+        # After the loop, print the total number of skipped examples
+        print(f"Total skipped examples: {skipped}")
+
+        # Save skipped examples to a file
+        skipped_file = "skipped_examples_openclip_zeroshot.json"
+        with open(skipped_file, "w") as f:
+            json.dump(skipped_examples, f, indent=4)
+        print(f"Skipped examples saved to {skipped_file}")
+        
         # Calculate accuracy percentages
         for group in ["Western", "Non-Western"]:
             correct = group_accuracies[group]["correct"]
@@ -224,8 +252,10 @@ if __name__ == "__main__":
     #                     help="Name of the Hugging Face model to use (e.g., openai/clip-vit-base-patch32)")
     parser.add_argument("--dataset", type=str, default="evaluation_dataset.json",
                         help="Path to the evaluation dataset (default: evaluation_dataset.json)")
-    parser.add_argument("--output", type=str, default="scale-equity-nlp/output_files/model_results.json",
+    parser.add_argument("--output", type=str, default="probs_openclip_model_results.json",
                         help="Path to save the model's selection results (default: model_results.json)")    
+    parser.add_argument("--skipped_file", type=str, default="skipped_examples_openclip_zeroshot.json",
+                        help="Path to save skipped examples")
     parser.add_argument("--debug", action="store_true",
                         help="Use a small dataset during debugging")
     
@@ -233,21 +263,22 @@ if __name__ == "__main__":
 
     # Load the dataset
     dataset = load_dataset(args.dataset)
+    # Print the total number of examples
+    print(f"Total examples in dataset: {len(dataset)}")
 
     # Use only 10 examples if in debug mode
     if args.debug:
         dataset = dataset[:10]
     
     # Load the model and processor
-    path = '/teamspace/studios/this_studio/scale-equity-nlp/models/CLIP-ViT-L-14/models--openai--clip-vit-base-patch32/snapshots/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268'
+    path = '/Users/maingoclanvy/scale-equity-nlp/models/CLIP-ViT-B-32/models--openai--clip-vit-base-patch32/snapshots/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268'
     processor, model = load_model(path)
     
     # Evaluate the model
-    accuracy, group_accuracies = evaluate_model(dataset, processor, model, args.output)
+    accuracy, group_accuracies = evaluate_model(dataset, processor, model, args.output, args.skipped_file)
     # Save the results
-    save_group_accuracy(group_accuracies, "/teamspace/studios/this_studio/scale-equity-nlp/output_files/openclip_group_accuracy_results_all.json")
+    save_group_accuracy(group_accuracies, "probs_openclip_zero_shot_group_accuracy_results.json")
 
-    
     # Print the results
     # print(f"Model: {args.model}")
     print(f"Accuracy: {accuracy:.2f}%")
