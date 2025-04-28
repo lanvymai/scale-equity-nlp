@@ -12,25 +12,27 @@ Image.MAX_IMAGE_PIXELS = None
 
 shard_path = "/scratch/ez2545/scale-equity-nlp/laion_output/shard_1"
 model_path = "/scratch/ez2545/models/CLIP-ViT-L-14/models--openai--clip-vit-base-patch32/snapshots/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268"
-subset_size = 450000
+subset_size = 45000 # how many image-text pairs to finetune
 batch_size = 8
 num_epochs = 3
 lr = 5e-5
 
+# handles tokenization and image normalization
 processor = CLIPProcessor.from_pretrained(model_path)
 model = CLIPModel.from_pretrained(model_path)
 
+# LoRA freezes uneeded weights so we only train ~1% of parameters
 def initialize_peft(model):
     lora_modules = [
         "q_proj", "k_proj", "v_proj", "out_proj",
         "fc1", "fc2",
         "visual_projection", "text_projection"
-    ]
+    ] # layers of text transformer and vision transformer
     config = LoraConfig(
         r=4,
-        lora_alpha=16,
+        lora_alpha=16, # scaling factor is 16/4
         target_modules=lora_modules,
-        lora_dropout=0.1,
+        lora_dropout=0.1, # regularization
         bias="none",
         task_type=None
     )
@@ -40,19 +42,19 @@ def initialize_peft(model):
     return model
 
 model = initialize_peft(model)
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch .cuda.is_available() else "cpu")
 model.to(device)
 
 tar_files = [os.path.join(shard_path, f) for f in os.listdir(shard_path) if f.endswith(".tar")]
 
 dataset = (
     wds.WebDataset(tar_files)
-    .shuffle(10000)  
-    .decode("pil")  
-    .to_tuple("jpg", "txt") 
+    .shuffle(10000) # shuffles data from local
+    .decode("pil")
+    .to_tuple("jpg", "txt") # each sample is (image, caption)
     .map_tuple(
         lambda img: img.convert("RGB"), 
-        lambda txt: txt.strip() 
+        lambda txt: txt.strip()
     )
 )
 
@@ -65,13 +67,16 @@ print(f"✅ Expected subset size: {subset_size}")
 actual_len = len(subset_dataset)
 print(f"✅ valid image-text pairs: {actual_len}")
 
+# data loading and preprocessing
 def collate_fn(batch):
     images, texts = zip(*batch)
     inputs = processor(text=list(texts), images=list(images), return_tensors="pt", padding=True, truncation=True)
     return {k: v.to(device) for k, v in inputs.items()}
 
+# convert to map because list is not iterable
 dataloader = DataLoader(subset_dataset, batch_size=batch_size, collate_fn=collate_fn)
 
+# default choice, has weight-decay built in
 optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
 
 model.train()
@@ -81,7 +86,7 @@ for epoch in range(num_epochs):
 
     for batch in tqdm(dataloader):
         inputs = {k: v.to(device) for k, v in batch.items()}
-        outputs = model(**inputs)
+        outputs = model(**inputs) # forward pass, returns pairwise similarity between image and text
 
         logits_per_image = outputs.logits_per_image
         logits_per_text = outputs.logits_per_text
@@ -91,7 +96,7 @@ for epoch in range(num_epochs):
         loss_img = torch.nn.functional.cross_entropy(logits_per_image, labels)
         loss_txt = torch.nn.functional.cross_entropy(logits_per_text, labels)
         loss = (loss_img + loss_txt) / 2
-
+        #back propagation to update the LoRA adapter weights and freezes everything else
         loss.backward()
         optimizer.step()
         optimizer.zero_grad()
@@ -99,7 +104,6 @@ for epoch in range(num_epochs):
         total_loss += loss.item()
 
     print(f"✅ Epoch {epoch+1} completed, avg loss: {total_loss/len(dataloader):.4f}")
-
-model.save_pretrained("./finetuned_1clip_model")
-print("✅ Model saved to ./finetuned_1clip_model")
-
+# saves adapter weights
+model.save_pretrained("./finetuned_0.05clip_model")
+print("✅ Model saved to ./finetuned_0.05clip_model")
