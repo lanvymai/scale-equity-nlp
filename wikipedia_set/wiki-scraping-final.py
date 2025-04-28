@@ -12,17 +12,17 @@ dimensions = {
         "Africa", "Latin America", "East Asia", "Southeast Asia",
         "Middle East", "Australia", "New Zealand"
     },
-    # "aesthetics / architecture": {
-    #     "Realism", "Modernism", "Minimalism", "Gothic architecture", "Baroque architecture", "Symbolism",
-    #     "Oral tradition", "Islamic architecture", "Buddhist architecture", "Vernacular architecture"
-    # },
+    "aesthetics / architecture": {
+         "Realism", "Modernism", "Minimalism", "Gothic architecture", "Baroque architecture", "Symbolism",
+         "Oral tradition", "Islamic architecture", "Buddhist architecture", "Vernacular architecture"
+     },
     "philosophical roots": {
         "Greco-Roman", "Enlightenment", "Christian", "Humanist", "Confucian", "Taoist", "Hindu", "Islamic",
         "Buddhist", "Animist"
-    # },
-    # "cultural values": {
-    #     "Individualism", "Secularism", "Rationalism", "Liberalism", "Democracy", "Collectivism", "Spirituality",
-    #     "Tradition", "Hierarchy"
+     },
+     "cultural values": {
+         "Individualism", "Secularism", "Rationalism", "Liberalism", "Democracy", "Collectivism", "Spirituality",
+         "Tradition", "Hierarchy"
     }
 }
 
@@ -30,17 +30,17 @@ dimensions = {
 western_categories = {
     "Europe", "North America", "Australia", "New Zealand"
     ,"Greco-Roman", "Enlightenment", "Christian", "Humanist"
-    # , 
-    # "Individualism", "Secularism", "Rationalism", "Liberalism", "Democracy",
-    # "Realism", "Modernism", "Minimalism", "Gothic architecture", "Baroque architecture"
+     , 
+     "Individualism", "Secularism", "Rationalism", "Liberalism", "Democracy",
+     "Realism", "Modernism", "Minimalism", "Gothic architecture", "Baroque architecture"
 }
 
 non_western_categories = {
     "South Asia", "Southeast Asia", "Middle East", "East Asia", "Africa", "Latin America", "Indigenous Culture" 
     ,"Confucian", "Taoist", "Hindu", "Islamic", "Buddhist", "Animist"
-    # , 
-    # "Collectivism", "Spirituality", "Tradition", "Hierarchy", 
-    # "Symbolism", "Oral tradition", "Islamic architecture", "Buddhist architecture", "Vernacular architecture"
+     , 
+     "Collectivism", "Spirituality", "Tradition", "Hierarchy", 
+     "Symbolism", "Oral tradition", "Islamic architecture", "Buddhist architecture", "Vernacular architecture"
 }
 
 continent_categories = {
@@ -69,7 +69,7 @@ def is_western(category):
     return "unknown"
 
 
-## Write remove duplicates strings
+# Write remove duplicates strings
 def remove_duplicates(strings):
     unique_counts = {}
     for s in strings:
@@ -201,16 +201,16 @@ if __name__ == "__main__":
         "Australia": "https://en.wikipedia.org/wiki/Category:Culture_of_Australia",
         "New Zealand": "https://en.wikipedia.org/wiki/Category:Culture_of_New_Zealand",        
         # Aesthetics / Architecture
-        # "Realism": "https://en.wikipedia.org/wiki/Category:Realism",
-        # "Modernism": "https://en.wikipedia.org/wiki/Category:Modernism",
-        # "Minimalism": "https://en.wikipedia.org/wiki/Category:Minimalism",
-        # "Gothic architecture": "https://en.wikipedia.org/wiki/Category:Gothic_architecture",
-        # "Baroque architecture": "https://en.wikipedia.org/wiki/Category:Baroque_architecture",
-        # "Symbolism": "https://en.wikipedia.org/wiki/Category:Symbolism",
-        # "Oral tradition": "https://en.wikipedia.org/wiki/Category:Oral_tradition",
-        # "Islamic architecture": "https://en.wikipedia.org/wiki/Category:Islamic_architecture",
-        # "Buddhist architecture": "https://en.wikipedia.org/wiki/Category:Buddhist_architecture",
-        # "Vernacular architecture": "https://en.wikipedia.org/wiki/Category:Vernacular_architecture",
+        "Realism": "https://en.wikipedia.org/wiki/Category:Realism",
+        "Modernism": "https://en.wikipedia.org/wiki/Category:Modernism",
+        "Minimalism": "https://en.wikipedia.org/wiki/Category:Minimalism",
+        "Gothic architecture": "https://en.wikipedia.org/wiki/Category:Gothic_architecture",
+        "Baroque architecture": "https://en.wikipedia.org/wiki/Category:Baroque_architecture",
+        "Symbolism": "https://en.wikipedia.org/wiki/Category:Symbolism",
+        "Oral tradition": "https://en.wikipedia.org/wiki/Category:Oral_tradition",
+        "Islamic architecture": "https://en.wikipedia.org/wiki/Category:Islamic_architecture",
+        "Buddhist architecture": "https://en.wikipedia.org/wiki/Category:Buddhist_architecture",
+        "Vernacular architecture": "https://en.wikipedia.org/wiki/Category:Vernacular_architecture",
         # Philosophical Roots
         "Greco-Roman": "https://en.wikipedia.org/wiki/Category:Greco-Roman_world",
         "Enlightenment": "https://en.wikipedia.org/wiki/Category:Age_of_Enlightenment",
@@ -223,15 +223,15 @@ if __name__ == "__main__":
         "Buddhist": "https://en.wikipedia.org/wiki/Category:Buddhism",
         "Animist": "https://en.wikipedia.org/wiki/Category:Animists",
         # Cultural Values
-        # "Individualism": "https://en.wikipedia.org/wiki/Category:Individualism",
-        # "Secularism": "https://en.wikipedia.org/wiki/Category:Secularism",
-        # "Rationalism": "https://en.wikipedia.org/wiki/Category:Rationalism",
-        # "Liberalism": "https://en.wikipedia.org/wiki/Category:Liberalism",
-        # "Democracy": "https://en.wikipedia.org/wiki/Category:Democracy",
-        # "Collectivism": "https://en.wikipedia.org/wiki/Category:Collectivism",
-        # "Spirituality": "https://en.wikipedia.org/?title=Category:Spirituality&from=B",
-        # "Tradition": "https://en.wikipedia.org/wiki/Category:Tradition",
-        # "Hierarchy": "https://en.wikipedia.org/wiki/Category:Hierarchy"
+        "Individualism": "https://en.wikipedia.org/wiki/Category:Individualism",
+        "Secularism": "https://en.wikipedia.org/wiki/Category:Secularism",
+        "Rationalism": "https://en.wikipedia.org/wiki/Category:Rationalism",
+        "Liberalism": "https://en.wikipedia.org/wiki/Category:Liberalism",
+        "Democracy": "https://en.wikipedia.org/wiki/Category:Democracy",
+        "Collectivism": "https://en.wikipedia.org/wiki/Category:Collectivism",
+        "Spirituality": "https://en.wikipedia.org/?title=Category:Spirituality&from=B",
+        "Tradition": "https://en.wikipedia.org/wiki/Category:Tradition",
+        "Hierarchy": "https://en.wikipedia.org/wiki/Category:Hierarchy"
     }
 
     # Step 1 & 2: Scrape data
