@@ -111,7 +111,7 @@ continent_categories = {
 }
 
 # Step 5: Evaluate the model
-def evaluate_model(dataset, processor, model, output_file):
+def evaluate_model(dataset, processor, model, output_file, skipped_file):
     num_correct = 0
     num_q = 0
     results = []  # List to store results for saving
@@ -130,7 +130,7 @@ def evaluate_model(dataset, processor, model, output_file):
     }
 
     with tqdm(dataset, desc="Evaluating", unit="item", total=len(dataset)) as pbar:
-        for entry in pbar:
+        for idx, entry in enumerate(pbar):
             question = entry["question"]
             options = entry["options"]
             correct_answer = entry["answer"]
@@ -149,6 +149,7 @@ def evaluate_model(dataset, processor, model, output_file):
             if prediction is None:
                 skipped += 1  # Increment the skipped counter
                 skipped_examples.append({
+                    "id": idx,
                     "question": question,
                     "options": options,
                     "correct_answer": correct_answer,
@@ -180,6 +181,7 @@ def evaluate_model(dataset, processor, model, output_file):
 
             # Store the result
             result = {
+                "id": idx,
                 "question": question,
                 "image": image_url,
                 "options": options,
@@ -214,6 +216,14 @@ def evaluate_model(dataset, processor, model, output_file):
                     group_accuracies["Continents"][continent]["total"] += 1
                     if predicted_option == correct_answer:
                         group_accuracies["Continents"][continent]["correct"] += 1
+
+        # After the loop, print the total number of skipped examples
+        print(f"Total skipped examples: {skipped}")
+        # Save skipped examples to a file
+        skipped_file = "skipped_examples_openclip_finetuned_0.1.json"
+        with open(skipped_file, "w") as f:
+            json.dump(skipped_examples, f, indent=4)
+        print(f"Skipped examples saved to {skipped_file}")
 
         # Calculate accuracy percentages
         for group in ["Western", "Non-Western"]:
@@ -267,6 +277,8 @@ if __name__ == "__main__":
                         help="Path to the evaluation dataset")
     parser.add_argument("--output", type=str, default="finetuned_0.1_open_clip_results.json",
                         help="Path to save the model's selection results")    
+    parser.add_argument("--skipped_file", type=str, default="skipped_examples_openclip_0.1.json",
+                        help="Path to save skipped examples")
     parser.add_argument("--debug", action="store_true",
                         help="Use a small dataset during debugging")
     
@@ -274,6 +286,8 @@ if __name__ == "__main__":
 
     # Load the dataset
     dataset = load_dataset(args.dataset)
+    # Print the total number of examples
+    print(f"Total examples in dataset: {len(dataset)}")
 
     # Use only 10 examples if in debug mode
     if args.debug:
@@ -287,7 +301,7 @@ if __name__ == "__main__":
     processor, model = load_model(base_model_path, adapter_path)
     
     # Evaluate the model
-    accuracy, group_accuracies = evaluate_model(dataset, processor, model, args.output)
+    accuracy, group_accuracies = evaluate_model(dataset, processor, model, args.output, args.skipped_file)
     # Save the results
     save_group_accuracy(group_accuracies, "finetuned_0.1_open_clip_group_accuracy_results.json")
 
