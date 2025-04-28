@@ -6,13 +6,16 @@ from torch.utils.data import DataLoader
 from transformers import CLIPProcessor, CLIPModel
 from peft import LoraConfig, get_peft_model
 from tqdm import tqdm
+from itertools import islice
 
-shard_path = "/scratch/ez2545/scale-equity-nlp/laion_output/shard_1/00000.tar"
+Image.MAX_IMAGE_PIXELS = None
+
+shard_path = "/scratch/ez2545/scale-equity-nlp/laion_output/shard_1"
 model_path = "/scratch/ez2545/models/CLIP-ViT-L-14/models--openai--clip-vit-base-patch32/snapshots/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268"
-subset_size = 22500
+subset_size = 450000
 batch_size = 8
 num_epochs = 3
-lr = 5e-6
+lr = 5e-5
 
 processor = CLIPProcessor.from_pretrained(model_path)
 model = CLIPModel.from_pretrained(model_path)
@@ -32,7 +35,7 @@ def initialize_peft(model):
         task_type=None
     )
     model = get_peft_model(model, config)
-    print("✅ LoRA, trainable parameters:")
+    print("✅ LoRA injected, trainable parameters:")
     model.print_trainable_parameters()
     return model
 
@@ -40,29 +43,40 @@ model = initialize_peft(model)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
+tar_files = [os.path.join(shard_path, f) for f in os.listdir(shard_path) if f.endswith(".tar")]
+
 dataset = (
-    wds.WebDataset(shard_path)
-    .shuffle(1000)
-    .decode("pil")
-    .to_tuple("jpg", "txt")
+    wds.WebDataset(tar_files)
+    .shuffle(10000)  
+    .decode("pil")  
+    .to_tuple("jpg", "txt") 
     .map_tuple(
-        lambda img: img.convert("RGB"),
-        lambda txt: txt.strip()
+        lambda img: img.convert("RGB"), 
+        lambda txt: txt.strip() 
     )
-).with_length(subset_size)
+)
+
+def random_subsample(dataset, subset_size):
+    return list(islice(dataset, subset_size))
+
+subset_dataset = random_subsample(dataset, subset_size)
+
+print(f"✅ Expected subset size: {subset_size}")
+actual_len = len(subset_dataset)
+print(f"✅ valid image-text pairs: {actual_len}")
 
 def collate_fn(batch):
     images, texts = zip(*batch)
     inputs = processor(text=list(texts), images=list(images), return_tensors="pt", padding=True, truncation=True)
     return {k: v.to(device) for k, v in inputs.items()}
 
-dataloader = DataLoader(dataset, batch_size=batch_size, collate_fn=collate_fn)
+dataloader = DataLoader(subset_dataset, batch_size=batch_size, collate_fn=collate_fn)
 
 optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
 
 model.train()
 for epoch in range(num_epochs):
-    print(f"🔥epoch: {epoch+1}")
+    print(f"🔥 Starting epoch {epoch+1}")
     total_loss = 0
 
     for batch in tqdm(dataloader):
@@ -84,8 +98,8 @@ for epoch in range(num_epochs):
 
         total_loss += loss.item()
 
-    print(f"✅ Epoch {epoch+1} completed, Avg Loss: {total_loss/len(dataloader):.4f}")
+    print(f"✅ Epoch {epoch+1} completed, avg loss: {total_loss/len(dataloader):.4f}")
 
-model.save_pretrained("./finetuned_0.05clip_model")
-print("✅ saved to ./finetuned_0.05clip_model")
+model.save_pretrained("./finetuned_1clip_model")
+print("✅ Model saved to ./finetuned_1clip_model")
 
