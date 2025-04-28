@@ -1,0 +1,431 @@
+[
+    {
+        "id": 14,
+        "question": "What does this image show?",
+        "options": [
+            "The earliest known depiction of a Siberian shaman, by the Dutch explorer Nicolaes Witsen, 17th century. Witsen called him a \"priest of the Devil\" and drew clawed feet for the supposed demonic qualities.[6]",
+            "Bonda \"disari\" (shaman) Sukra Dhangdamajhi shares his shamanic practices in the Bonda language",
+            "Entrance of a Rengma Naga morung at the Kisama Heritage Village",
+            "Urban natives in Brazil"
+        ],
+        "correct_answer": "Bonda \"disari\" (shaman) Sukra Dhangdamajhi shares his shamanic practices in the Bonda language",
+        "image_url": "",
+        "category": "Indigenous Culture"
+    },
+    {
+        "id": 49,
+        "question": "What is this a picture of?",
+        "options": [
+            "Indian actress Priyanka Chopra modeling an Anarkali salwar.",
+            "Chapchar Kut cheraw dance in Mizoram. Chapchar Kut festival is celebrated during March after completion of their most arduous task of Jhum operation i.e., jungle-clearing (clearing of the remnants of burning).",
+            "India vs Iran at the 2023 Asian Kho Kho Championship. Kho kho is South Asia's second-most popular tag game.",
+            "Newly excavated Buddhist stupa at Mes Aynak in Logar Province. Similar stupas have been discovered in neighboring Ghazni Province, including in the northern Samangan Province."
+        ],
+        "correct_answer": "Chapchar Kut cheraw dance in Mizoram. Chapchar Kut festival is celebrated during March after completion of their most arduous task of Jhum operation i.e., jungle-clearing (clearing of the remnants of burning).",
+        "image_url": "",
+        "category": "South Asia"
+    },
+    {
+        "id": 75,
+        "question": "Choose the correct description for this image.",
+        "options": [
+            "Sacred Tooth Temple in Kandy, Sri Lanka",
+            "A Mughal Era Maktab (Primary School) in Lahore. Painting by Dharmadasa c.1597-1598",
+            "Electric bulbul tarang playing",
+            "Ruins of Ayutthaya in Thailand; Ayutthaya derives its name from the ancient Indian city of Ayodhya, which has had wide cultural significance"
+        ],
+        "correct_answer": "Electric bulbul tarang playing",
+        "image_url": "",
+        "category": "South Asia"
+    },
+    {
+        "id": 95,
+        "question": "Select the label that is most likely the topic of this image.",
+        "options": [
+            "Video of mehndi application",
+            "Hindu-Buddhist icongraphy from Mogao Caves in the Gobi Desert",
+            "Shaheed Minar (Martyr Monument) People commemorates those who were killed in the 21 February 1952 Bengali Language Movement demonstration",
+            "Polonnaruwa Vatadage Sri Lanka"
+        ],
+        "correct_answer": "Video of mehndi application",
+        "image_url": "",
+        "category": "South Asia"
+    },
+    {
+        "id": 292,
+        "question": "Which label is most visually consistent with the image shown?",
+        "options": [
+            "Midsummer in Stockholm, raising and dancing around a maypole, 2019 (video).",
+            "Portrait of a Lady in Turkish Fancy Dress by Jean-Baptiste Greuze (c. 1790)",
+            "Dancers on the Europeade 2015 in Helsingborg.",
+            "Prada shop at Galleria Vittorio Emanuele II in Milan, Italy"
+        ],
+        "correct_answer": "Midsummer in Stockholm, raising and dancing around a maypole, 2019 (video).",
+        "image_url": "",
+        "category": "Europe"
+    },
+    {
+        "id": 477,
+        "question": "Which label is most visually consistent with the image shown?",
+        "options": [
+            "A circumcision operation among the Nupe people",
+            "Photographic safari in Sabi Sands Game Reserve, South Africa",
+            "A Benin Bronze depicts a Portuguese soldier with manillas in the background",
+            "A woman in Mahajanga preparing masonjoany for herself on a market wall"
+        ],
+        "correct_answer": "A woman in Mahajanga preparing masonjoany for herself on a market wall",
+        "image_url": "",
+        "category": "Africa"
+    },
+    {
+        "id": 773,
+        "question": "Which caption best matches this image?",
+        "options": [
+            "Balero demonstration in Mexico showing a common technique of landing the cup on the stick.",
+            "\"Chicana by luck, proud by choice\" at 2019 Women's March, Los Angeles",
+            "The reflective light disco ball was a fixture on the ceilings of many discoth\u00e8ques.",
+            "Mexican American girls at a quincea\u00f1era celebration in Santa Fe, New Mexico"
+        ],
+        "correct_answer": "Balero demonstration in Mexico showing a common technique of landing the cup on the stick.",
+        "image_url": "",
+        "category": "Latin America"
+    },
+    {
+        "id": 778,
+        "question": "Choose the correct description for this image.",
+        "options": [
+            "Disco dance performance at the 30th anniversary of Kontula in Helsinki, Finland, in 1994",
+            "Frontal perspective of the 2004 cast of Alejandro Colina's 1951 statue of Mar\u00eda Lionza in Caracas",
+            "A Mexican quincea\u00f1era celebration",
+            "Statueless plinth in Caracas in 2006. A statue of Christopher Columbus, which formerly occupied the plinth, was knocked down by activists in 2004.[106]"
+        ],
+        "correct_answer": "A Mexican quincea\u00f1era celebration",
+        "image_url": "",
+        "category": "Latin America"
+    },
+    {
+        "id": 822,
+        "question": "What is this a picture of?",
+        "options": [
+            "Carlos Almaraz (1979)",
+            "Latin America is the area south of the Rio Grande, excluding Jamaica, Trinidad and Tobago, Guyana, Suriname and other English speaking countries",
+            "Lady with a yo-yo, Northern India (Rajasthan, Bundi or Kota), c. 1770 Opaque watercolor and gold on paper",
+            "Roberto Tinoco Dur\u00e1n, a Pur\u00e9pecha-Ch\u00edca\u00f1o poet, interviewed on Native Voice TV (2017)."
+        ],
+        "correct_answer": "Roberto Tinoco Dur\u00e1n, a Pur\u00e9pecha-Ch\u00edca\u00f1o poet, interviewed on Native Voice TV (2017).",
+        "image_url": "",
+        "category": "Latin America"
+    },
+    {
+        "id": 866,
+        "question": "Select the label that is most likely the topic of this image.",
+        "options": [
+            "Tania Libertad was named an Ambassador for Peace by UNESCO, Commendatory by the Peruvian government.",
+            "Japanese lowrider. Chicano cultural influence is strong in Japan.[264]",
+            "Like disco, house music was based around DJs creating mixes for dancers in clubs. Pictured is DJ Miguel Migs, mixing using CDJ players.",
+            "Roberto Bola\u00f1o is considered to have had the greatest United States impact of any post-Boom author"
+        ],
+        "correct_answer": "Japanese lowrider. Chicano cultural influence is strong in Japan.[264]",
+        "image_url": "",
+        "category": "Latin America"
+    },
+    {
+        "id": 868,
+        "question": "Which label is most visually consistent with the image shown?",
+        "options": [
+            "Winding the trompo",
+            "An \u00e1nima for the dead",
+            "Flag of the Hispanic People",
+            "Panoramic view of the Sanctuary of Our Lady of F\u00e1tima in Portugal"
+        ],
+        "correct_answer": "Winding the trompo",
+        "image_url": "",
+        "category": "Latin America"
+    },
+    {
+        "id": 869,
+        "question": "What is the subject of this photo?",
+        "options": [
+            "Patterns of Merchants; (1a) Huehuecoyotl, (1b) Zacatzontli, (2a) Yacatecuhtli, (2b) Tlacotzontli, (3a) Tlazolteotl and Metztli, (3b) Tonatiuh.",
+            "Copacabana's Basilica of Our Lady of Copacabana",
+            "Basic throw",
+            "Traditional wooden trompos"
+        ],
+        "correct_answer": "Basic throw",
+        "image_url": "",
+        "category": "Latin America"
+    },
+    {
+        "id": 912,
+        "question": "What is this a picture of?",
+        "options": [
+            "The compound character \u597d illustrated as its component characters \u5973 and \u5b50 positioned side by side",
+            "A face mask with Disney characters, designed for children[61]",
+            "Chinese Zodiac Compatibility-Conflict-Harm Grid in accordance to one's nature, characteristics, and elements",
+            "Hell banknotes in Thailand resembling United States Dollar, and Thai Baht banknotes"
+        ],
+        "correct_answer": "The compound character \u597d illustrated as its component characters \u5973 and \u5b50 positioned side by side",
+        "image_url": "",
+        "category": "East Asia"
+    },
+    {
+        "id": 948,
+        "question": "Which caption best matches this image?",
+        "options": [
+            "The compound character \u597d illustrated as its component characters \u5973 and \u5b50 positioned side by side",
+            "Kitsune-ken (or t\u014dhachi-ken), another Japanese sansukumi-ken game (1774). From left to right: Hunter (Ry\u014dshi), village head (Sh\u014dya), and fox (Kitsune).",
+            "The Painting of Foreign Countries (\u5916\u570b\u5716) in the 18th century with Revival L\u00ea dynasty as \"middle state\" (\u4e2d\u570b).",
+            "Comparison of breathing out without (top) and with (bottom) a mask. Note that without a mask jets of air are exhaled that can carry viruses and bacteria rapidly towards a person in front of the person breathing out. But with a mask these jets are blocked, meaning the air instead mostly rises due to convection. Note that although jets are blocked, the same amount of air moves in both cases, allowing the wearer to breathe easily."
+        ],
+        "correct_answer": "Comparison of breathing out without (top) and with (bottom) a mask. Note that without a mask jets of air are exhaled that can carry viruses and bacteria rapidly towards a person in front of the person breathing out. But with a mask these jets are blocked, meaning the air instead mostly rises due to convection. Note that although jets are blocked, the same amount of air moves in both cases, allowing the wearer to breathe easily.",
+        "image_url": "",
+        "category": "East Asia"
+    },
+    {
+        "id": 1039,
+        "question": "What is this a picture of?",
+        "options": [
+            "Roofed kori agung gate at the Bali Pavilion of Taman Mini Indonesia Indah",
+            "Traditional mor lam",
+            "Thai people stand for the national anthem of Thailand at Mo Chit Bus Terminal at 6.00 p.m.",
+            "Bess\u00e9\u02bc head, cracked and fragmented, surrounded by two cobbles."
+        ],
+        "correct_answer": "Thai people stand for the national anthem of Thailand at Mo Chit Bus Terminal at 6.00 p.m.",
+        "image_url": "",
+        "category": "Southeast Asia"
+    },
+    {
+        "id": 1040,
+        "question": "Select the label that is most likely the topic of this image.",
+        "options": [
+            "Atashgah of Baku, a fire temple in Azerbaijan used by both Hindus[47][48] and Persian Zoroastrians",
+            "An East Timorese wedding in 2006",
+            "Thai people stand for the royal anthem of Thailand at the 2009 Red Cross Fair, Royal Plaza (Bangkok).",
+            "Kinnaree"
+        ],
+        "correct_answer": "Thai people stand for the royal anthem of Thailand at the 2009 Red Cross Fair, Royal Plaza (Bangkok).",
+        "image_url": "",
+        "category": "Southeast Asia"
+    },
+    {
+        "id": 1074,
+        "question": "Which of the following best describes this image?",
+        "options": [
+            "In the Mintha Theater (Mandalay) a master teacher of the Inwa School of Performing Arts demonstrates traditional hand movements.",
+            "Prambanan Trimurti temple, according to Shivagrha inscription (856 CE) dedicated for the highest god Siwa Mahadewa",
+            "In Chapter 11, the children are cared for while Jujaka sleeps. This painting is from the 19th century, Thailand. In the collection of the Walters Art Museum",
+            "Indonesian wood carving"
+        ],
+        "correct_answer": "In the Mintha Theater (Mandalay) a master teacher of the Inwa School of Performing Arts demonstrates traditional hand movements.",
+        "image_url": "",
+        "category": "Southeast Asia"
+    },
+    {
+        "id": 1337,
+        "question": "What is this a picture of?",
+        "options": [
+            "Saudi woman wearing a niq\u0101b in Riyadh. Many women commonly wear a niqab or a burqa in Saudi Arabia.",
+            "Traditional Qatari wedding ceremony",
+            "2010 population by age and gender",
+            "Married Eastern Orthodox priest from Jerusalem with his family (three generations), circa 1893"
+        ],
+        "correct_answer": "Traditional Qatari wedding ceremony",
+        "image_url": "",
+        "category": "Middle East"
+    },
+    {
+        "id": 1426,
+        "question": "What is this a picture of?",
+        "options": [
+            "Khalil Gibran (April 1913)",
+            "Kanun music during the 5th anniversary of Wikimedia Armenia",
+            "Classic white Chinese Mantou",
+            "Traditional Kurdish food"
+        ],
+        "correct_answer": "Kanun music during the 5th anniversary of Wikimedia Armenia",
+        "image_url": "",
+        "category": "Middle East"
+    },
+    {
+        "id": 1633,
+        "question": "What is this a picture of?",
+        "options": [
+            "All Blacks performing a haka (Dunedin, 2014)",
+            "A pavlova with strawberries, passionfruit, kiwifruit and cream",
+            "Hinepare of Ng\u0101ti Kahungunu, is wearing a traditional korowai cloak adorned with a black fringe border. The two huia feathers in her hair, indicate a chiefly lineage. She also wears a pounamu hei-tiki and earring, as well as a shark tooth (mako) earring. The moko-kauae (chin-tattoo) is often based on one's role in the iwi.",
+            "The slogan as it appears on Lemon & Paeroa bottles."
+        ],
+        "correct_answer": "All Blacks performing a haka (Dunedin, 2014)",
+        "image_url": "",
+        "category": "New Zealand"
+    },
+    {
+        "id": 1675,
+        "question": "Which of the following best describes this image?",
+        "options": [
+            "McMurdo Sound, Antarctica",
+            "ABC news report in 1967, documenting South Australia's changeover away from six o' clock closing",
+            "19th-century illustration of a haka, c.\u20091890",
+            "Selwyn College"
+        ],
+        "correct_answer": "ABC news report in 1967, documenting South Australia's changeover away from six o' clock closing",
+        "image_url": "",
+        "category": "New Zealand"
+    },
+    {
+        "id": 1949,
+        "question": "What is the subject of this photo?",
+        "options": [
+            "A reading from one of Kant's early writings in Latin, Physical Monadology: Preliminary Considerations.",
+            "Bibliothecae Regiae Catalogus",
+            "Robert Morris statue honoring Founding Father and financier Robert Morris at Independence National Historical Park in Philadelphia",
+            "\u00c9l\u00e9ments de la g\u00e9om\u00e9trie de l'infini, 1727"
+        ],
+        "correct_answer": "A reading from one of Kant's early writings in Latin, Physical Monadology: Preliminary Considerations.",
+        "image_url": "",
+        "category": "Enlightenment"
+    },
+    {
+        "id": 2148,
+        "question": "Choose the correct description for this image.",
+        "options": [
+            "Fashionable hairstyles from Galerie des Modes et Costumes Fran\u00e7ais 1780",
+            "Terror in the Arctic",
+            "A reading from Meditationes de Prima Philosophia, with English subtitles",
+            "Cover engraving of Voltaire's book on the works of Isaac Newton, \u00c9l\u00e9ments de la philosophie de Newton (\"Elements of Newtonian Philosophy\") of 1738. The sitter, translating Newton's works, is \"enlightened\" by a quasi-divine light emanating from Newton himself. The light is reflected by a mirror held by a muse representing \u00c9milie du Ch\u00e2telet, Voltaire's mistress and co-translator."
+        ],
+        "correct_answer": "A reading from Meditationes de Prima Philosophia, with English subtitles",
+        "image_url": "",
+        "category": "Enlightenment"
+    },
+    {
+        "id": 2273,
+        "question": "Select the label that is most likely the topic of this image.",
+        "options": [
+            "Ouverture",
+            "Prince Lobkowitz depicted in a portrait by August Friedrich Oelenhainz",
+            "Franklin's gravesite at Christ Church Burial Ground in Philadelphia",
+            "Jos\u00e9 Cadalso"
+        ],
+        "correct_answer": "Ouverture",
+        "image_url": "",
+        "category": "Enlightenment"
+    },
+    {
+        "id": 2789,
+        "question": "Which caption best matches this image?",
+        "options": [
+            "The Zemstvo Dines in the State Tretyakov Gallery",
+            "Robert Doisneau (1952) L'Enfer, Bd. de Clichy",
+            "Engraving from the first version of the painting the Zemstvo Dines (1873)",
+            "Andr\u00e9 Kert\u00e9sz (19 May 1920) Circus, Budapest."
+        ],
+        "correct_answer": "Robert Doisneau (1952) L'Enfer, Bd. de Clichy",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/L%27Enfer_-_Bd._de_Clichy_-_photographie_-_Robert_Doisneau_-_btv1b52519748n.jpg/250px-L%27Enfer_-_Bd._de_Clichy_-_photographie_-_Robert_Doisneau_-_btv1b52519748n.jpg",
+        "category": "Realism"
+    },
+    {
+        "id": 3021,
+        "question": "Which caption best matches this image?",
+        "options": [
+            "Adolphe Menjou (left) and Kirk Douglas (right) in Paths of Glory (1957)",
+            "Gustave Caillebotte. Paris Street, Rainy Day, 1877. Art Institute of Chicago.",
+            "Michael Sadler",
+            "Danceworks rehearsal of \"Stone Soup\" in 2011 with semi-improvised music from composer Seth Warren-Crow and Apple iLife sound clip \"Tour Bus\""
+        ],
+        "correct_answer": "Danceworks rehearsal of \"Stone Soup\" in 2011 with semi-improvised music from composer Seth Warren-Crow and Apple iLife sound clip \"Tour Bus\"",
+        "image_url": "",
+        "category": "Modernism"
+    },
+    {
+        "id": 4318,
+        "question": "Which of the following best describes this image?",
+        "options": [
+            "Islamic geometric patterns in Saint Petersburg, Russia",
+            "The Buland Darwaza gateway to Fatehpur Sikri, built by Akbar in 1601",
+            "The Asifi Imambara in Lucknow, the capital city of the Indian state of Uttar Pradesh.",
+            "Domes of the Hammam as-Saffarin in the old city of Fez, Morocco"
+        ],
+        "correct_answer": "Domes of the Hammam as-Saffarin in the old city of Fez, Morocco",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Marocco_Fez%2826855722427%29.jpg/250px-Marocco_Fez%2826855722427%29.jpg",
+        "category": "Islamic architecture"
+    },
+    {
+        "id": 4460,
+        "question": "Which of the following best describes this image?",
+        "options": [
+            "Head of a bull, one of the animals of the zodiac, carved onto the Tomb of Emir Saltuq",
+            "Pilgrims perform Tawaf around the Kaaba during Umrah (video)",
+            "Muqarnas vault over the entrance of the Sultan Han (1229, Seljuk period) in Turkey",
+            "Exterior of the Jannat Sarai (16th century), an early Safavid construction, added by Tahmasp I to the shrine complex of Sheikh Safi al-Din in Ardabil"
+        ],
+        "correct_answer": "Pilgrims perform Tawaf around the Kaaba during Umrah (video)",
+        "image_url": "",
+        "category": "Islamic architecture"
+    },
+    {
+        "id": 5179,
+        "question": "What does this image show?",
+        "options": [
+            "A bundwerk barn or stadel",
+            "A sculpture of a Low German Hallhouse framework in Neukirchen-Vluyn, Germany",
+            "Howe trusses of the Hartland Bridge which crosses the Saint John River between Maine and New Brunswick, Canada",
+            "Looking around a preserved old minka in Tokyo"
+        ],
+        "correct_answer": "Looking around a preserved old minka in Tokyo",
+        "image_url": "",
+        "category": "Vernacular architecture"
+    },
+    {
+        "id": 5630,
+        "question": "What is the subject of this photo?",
+        "options": [
+            "The Pournelle chart",
+            "A clinical chemistry analyzer",
+            "Note the goalkeeper guessing and jumping slightly before the kick is taken.",
+            "Ren\u00e9 Descartes"
+        ],
+        "correct_answer": "Note the goalkeeper guessing and jumping slightly before the kick is taken.",
+        "image_url": "",
+        "category": "Rationalism"
+    },
+    {
+        "id": 5686,
+        "question": "Which label is most visually consistent with the image shown?",
+        "options": [
+            "Vandana Shiva",
+            "Sismondi, who wrote the first critique of the free market from a liberal perspective in 1819",
+            "Mary Wollstonecraft, widely regarded as the pioneer of liberal feminism",
+            "Jatiya Sangsad Bhaban, parliament building of Bangladesh"
+        ],
+        "correct_answer": "Vandana Shiva",
+        "image_url": "",
+        "category": "Liberalism"
+    },
+    {
+        "id": 6085,
+        "question": "What is the subject of this photo?",
+        "options": [
+            "Meeting of the Grand Committee of the Parliament of Finland in 2008",
+            "The Pnyx with the speaker's platform, the meeting place of the people of Athens",
+            "Kurt G\u00f6del in 1925",
+            "President-elect Ronald Reagan is sworn in as president of the United States in a symbolic peaceful transfer of power in 1981."
+        ],
+        "correct_answer": "President-elect Ronald Reagan is sworn in as president of the United States in a symbolic peaceful transfer of power in 1981.",
+        "image_url": "",
+        "category": "Democracy"
+    },
+    {
+        "id": 6400,
+        "question": "Which of the following best describes this image?",
+        "options": [
+            "A population of bees shimmers in response to a predator.",
+            "Joseph Wright of Derby, A Philosopher Lecturing on the Orrery, 1766, a conversation piece with no portraits and with the full seriousness of the history painting.",
+            "An example of the relationship between hyponyms and hypernym",
+            "Arterial road with bike lane in Palo Alto, California"
+        ],
+        "correct_answer": "A population of bees shimmers in response to a predator.",
+        "image_url": "",
+        "category": "Hierarchy"
+    }
+]
