@@ -111,7 +111,7 @@ continent_categories = {
 }
 
 # Step 5: Evaluate the model
-def evaluate_model(dataset, processor, model, output_file):
+def evaluate_model(dataset, processor, model, output_file, skipped_file):
     num_correct = 0
     num_q = 0
     results = []  # List to store results for saving
@@ -131,7 +131,7 @@ def evaluate_model(dataset, processor, model, output_file):
     }
 
     with tqdm(dataset, desc="Evaluating", unit="item", total=len(dataset)) as pbar:
-        for entry in pbar:
+        for idx, entry in enumerate(pbar):
             question = entry["question"]
             options = entry["options"]
             correct_answer = entry["answer"]
@@ -151,6 +151,7 @@ def evaluate_model(dataset, processor, model, output_file):
             if prediction is None:
                 skipped += 1  # Increment the skipped counter
                 skipped_examples.append({
+                    "id": idx,
                     "question": question,
                     "options": options,
                     "correct_answer": correct_answer,
@@ -181,6 +182,7 @@ def evaluate_model(dataset, processor, model, output_file):
 
             # Store the result
             result = {
+                "id": idx,
                 "question": question,
                 "image": image_url,
                 "options": options,
@@ -276,6 +278,8 @@ if __name__ == "__main__":
                         help="Path to the evaluation dataset")
     parser.add_argument("--output", type=str, default="probs_finetuned_0.05_open_clip_results.json",
                         help="Path to save the model's selection results")    
+    parser.add_argument("--skipped_file", type=str, default="skipped_examples.json",
+                        help="Path to save skipped examples")
     parser.add_argument("--debug", action="store_true",
                         help="Use a small dataset during debugging")
     
@@ -298,7 +302,7 @@ if __name__ == "__main__":
     processor, model = load_model(base_model_path, adapter_path)
     
     # Evaluate the model
-    accuracy, group_accuracies = evaluate_model(dataset, processor, model, args.output)
+    accuracy, group_accuracies = evaluate_model(dataset, processor, model, args.output, args.skipped_file)
     # Save the results
     save_group_accuracy(group_accuracies, "probs_finetuned_0.05_open_clip_group_accuracy_results.json")
 
