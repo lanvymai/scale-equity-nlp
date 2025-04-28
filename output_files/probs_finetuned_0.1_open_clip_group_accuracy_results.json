@@ -1,13 +1,13 @@
 {
     "Western": {
-        "correct": 2021,
-        "total": 2128,
-        "accuracy": 94.9718045112782
+        "correct": 2520,
+        "total": 2662,
+        "accuracy": 94.6656649135988
     },
     "Non-Western": {
-        "correct": 2071,
-        "total": 2215,
-        "accuracy": 93.49887133182844
+        "correct": 3462,
+        "total": 3713,
+        "accuracy": 93.23996768112039
     },
     "Continents": {
         "Europe": {
